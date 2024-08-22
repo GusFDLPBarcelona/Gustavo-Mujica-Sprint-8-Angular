@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { CalendarioComponent } from './calendario.component';
+import { CalendarioComponent } from "./calendario.component";
 
-describe('CalendarioComponent', () => {
+describe("CalendarioComponent", () => {
   let component: CalendarioComponent;
   let fixture: ComponentFixture<CalendarioComponent>;
 
@@ -10,14 +10,14 @@ describe('CalendarioComponent', () => {
     await TestBed.configureTestingModule({
       imports: [CalendarioComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CalendarioComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

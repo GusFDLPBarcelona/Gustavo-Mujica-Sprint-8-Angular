@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="title">
+        <h4>Lista de productos</h4>
+        <button type="button" class="btn btn-primary" routerLink='/agregar'>Agregar Producto</button>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Talla</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Stock</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of listaProductos; track item) {
+            <tr class="table-active">
+                <th>{{ item.nombre }}</th>
+                <td>{{ item.descripcion }}</td>
+                <td>{{ item.talla }}</td>
+                <td>{{ item.precio }}</td>
+                <td>{{ item.stock }}</td>
+                <td>
+                    <button routerLink='/editar/{{item.id}}' type="button" class="btn btn-info btn-sm">Editar</button>
+                    <button routerLink='/eliminar/{{item.id}}' type="button"
+                        class="btn btn-danger btn-sm ms-2">Eliminar</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
