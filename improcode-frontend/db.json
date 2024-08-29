@@ -1,0 +1,27 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+
+  "productos": [
+
+    { "id": 1, "nombre": "T-Shirt", "descripción": "Print espalda", "talla": "M", "precio": 49, "stock": 100 },
+    { "id": 2, "nombre": "Gorra", "descripción": "Bordado frontal", "talla": "única", "precio": 35, "stock": 210 },
+    { "id": 3, "nombre": "Riñonera", "descripción": "Bordado Corazón", "talla": "única", "precio": 29, "stock": 200 },
+    { "id": 4, "nombre": "Cinturón", "descripción": "Bordado on fire", "talla": "L", "precio": 30, "stock": 300 }
+]
+}

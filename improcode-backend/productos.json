@@ -1,6 +1,1 @@
-[
-    { "id": 1, "nombre": "T-Shirt", "descripción": "Print espalda", "talla": "M", "precio": 49, "stock": 100 },
-    { "id": 2, "nombre": "Gorra", "descripción": "Bordado frontal", "talla": "única", "precio": 35, "stock": 210 },
-    { "id": 3, "nombre": "Riñonera", "descripción": "Bordado Corazón", "talla": "única", "precio": 29, "stock": 200 },
-    { "id": 4, "nombre": "Cinturón", "descripción": "Bordado on fire", "talla": "L", "precio": 30, "stock": 300 }
-]
+[{"nombre":"Gorro","descripcion":"Bordado frontal","talla":"única","precio":30,"stock":20,"id":1},{"nombre":"T-Shirt","descripcion":"Estampado trasero","talla":"M","precio":30,"stock":14,"id":2},{"nombre":"Vaper","descripcion":"Juguete","talla":"medium","precio":25,"stock":19,"id":3},{"nombre":"Cinturón","descripcion":"Cuero bordado","talla":"medium","precio":12,"stock":19,"id":4}]

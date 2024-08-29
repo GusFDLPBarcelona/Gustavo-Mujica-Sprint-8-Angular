@@ -1,8 +1,43 @@
-<div class="card border-info mb-3" style="max-width: 25rem;">
-    <div class="card-header">Header</div>
-    <div class="card-body">
-        <h4 class="card-title">Info card title</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
-    </div>
-</div>
+<div class="row mt-5">
+    <div class="col-lg-4 offset-lg-4">
+        <div class="card border-info mb-3" style="max-width: 25rem;">
+            <div class="card-header text-center">Agregar Producto</div>
+            <div class="card-body">
+                <form [formGroup]="form" (submit)="agregarProducto()">
+                    <input formControlName="nombre" type="text" class="form-control" placeholder="nombre">
+                    @if(form.get('nombre')?.touched && form.get('nombre')?.hasError('required')) {
+                    <span class="small">Campo obligatorio.</span>
+                    }
+                    <input formControlName="descripcion" type="text" class="form-control mt-2"
+                        placeholder="descripción">
+                    @if(form.get('descripcion')?.touched && form.get('descripcion')?.hasError('required')) {
+                    <span class="small">Campo obligatorio.</span>
+                    }
+                    <input formControlName="talla" type="text" class="form-control mt-2" placeholder="talla">
+                    @if(form.get('talla')?.touched && form.get('talla')?.hasError('required')) {
+                    <span class="small">Campo obligatorio.</span>
+                    }
+                    <input formControlName="precio" type="number" class="form-control mt-2" placeholder="precio">
+                    @if(form.get('precio')?.touched && form.get('precio')?.hasError('required')) {
+                    <span class="small">Campo obligatorio.</span>
+                    }
+                    <input formControlName="stock" type="number" class="form-control mt-2" placeholder="stock">
+                    @if(form.get('stock')?.touched && form.get('stock')?.hasError('required')) {
+                    <span class="small">Campo obligatorio.</span>
+                    }
+                    <div class="row mt-3 text-center">
+                        <div class="col-lg-6">
+                            <button routerLink='' type="button" class="btn btn-success">Volver</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button [disabled]="form.invalid" type="submit" class="btn btn-warning">Aceptar</button>
+                        </div>
+                    </div>
+                </form>
+                @if(agregadoCorrectamente) {
+                <div class="modal">
+                    <div class="modal-content">
+                        <p>Producto agregado</p>
+                    </div>
+                </div>
+                }
