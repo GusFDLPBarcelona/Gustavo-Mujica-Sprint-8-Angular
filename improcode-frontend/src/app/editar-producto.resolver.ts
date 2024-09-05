@@ -6,6 +6,6 @@ export const editarProductoResolver: ResolveFn<any> = (route: ActivatedRouteSnap
   state: RouterStateSnapshot,) => {
   console.log(route.params['id']);
   debugger;
-  return inject(ProductosService).obtenerPorId(route.params['id']);
+  //return inject(ProductosService).obtenerPorId(route.params['id']);
 };
 

@@ -1,4 +1,4 @@
-import { Routes, Router } from "@angular/router";
+import { Routes, } from "@angular/router";
 import { ListaProductosComponent } from "./components/lista-productos/lista-productos.component";
 import { AgregarEditarComponent } from "./components/agregar-editar/agregar-editar.component";
 import { editarProductoResolver } from "./editar-producto.resolver";

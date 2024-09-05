@@ -42,10 +42,11 @@ export class AgregarEditarComponent implements OnInit {
       precio: this.form.value.precio,
       stock: this.form.value.stock,
     }
-    this.productoService.agregarProducto(producto).subscribe(response => {
+    /*this.productoService.agregarProducto(producto).subscribe(response => {
       this.agregadoCorrectamente = response;
       console.log(response);
     })
+  }*/
   }
 }
 

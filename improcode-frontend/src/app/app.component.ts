@@ -6,10 +6,11 @@ import { AgregarEditarComponent } from "./components/agregar-editar/agregar-edit
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
 
+
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, ListaProductosComponent, AgregarEditarComponent, CommonModule, AppComponent, ReactiveFormsModule],
+  imports: [RouterOutlet, NavbarComponent, ListaProductosComponent, AgregarEditarComponent, CommonModule, AppComponent, ReactiveFormsModule,],
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.css"
 })

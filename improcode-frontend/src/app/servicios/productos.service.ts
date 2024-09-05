@@ -2,36 +2,43 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Producto } from '../interfaces/producto';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductosService {
 
-  private apiUrl = 'http://localhost:3000/productos';
+  private myAppUrl: string;
+  private myApiUrl: string;
 
-  constructor(private http: HttpClient) { }
-
-
-  getProductos(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  constructor(private http: HttpClient) {
+    this.myAppUrl = environment.endpoint;
+    this.myApiUrl = 'api/productos/';
   }
 
-  agregarProducto(producto: any): Observable<any> {
+
+  getProductos(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.myAppUrl}${this.myApiUrl}`);
+  }
+
+  /*agregarProducto(producto: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, producto);
-  }
+  }*/
 
   eliminarProducto(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+    return this.http.delete<any>(`${this.myAppUrl}${this.myApiUrl}${id}`);
   }
-
-  editarProducto(id: number, producto: Producto): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, producto);
-  }
-
-  obtenerPorId(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`);
-  }
+  /*
+    editarProducto(id: number, producto: Producto): Observable<any> {
+      return this.http.put<any>(`${this.apiUrl}/${id}`, producto);
+    }
+  
+    obtenerPorId(id: number): Observable<any> {
+      return this.http.get(`${this.apiUrl}/${id}`);
+    }
+    */
 }
 
 

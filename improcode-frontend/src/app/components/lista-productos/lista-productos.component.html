@@ -1,3 +1,8 @@
+@if(loading){
+<app-progress-bar></app-progress-bar>
+}
+@if(!loading) {
+
 <div class="container">
     <div class="title">
         <h4>Lista de productos</h4>
@@ -21,11 +26,11 @@
                 <th>{{ item.nombre }}</th>
                 <td>{{ item.descripcion }}</td>
                 <td>{{ item.talla }}</td>
-                <td>{{ item.precio }}</td>
+                <td>{{ item.precio | currency }}</td>
                 <td>{{ item.stock }}</td>
                 <td>
                     <button routerLink='/editar/{{item.id}}' type="button" class="btn btn-info btn-sm">Editar</button>
-                    <button routerLink='/eliminar/{{item.id}}' type="button"
+                    <button (click)="eliminarProducto(item.id)" type="button"
                         class="btn btn-danger btn-sm ms-2">Eliminar</button>
                 </td>
             </tr>
@@ -33,3 +38,4 @@
         </tbody>
     </table>
 </div>
+}
