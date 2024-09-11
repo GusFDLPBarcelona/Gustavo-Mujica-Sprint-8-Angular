@@ -20,8 +20,8 @@ const Producto = db.define('Producto', {
     },
 }, {
 
-    createdAt: false,
-    updatedAt: false,
+    createdAt: true,
+    updatedAt: true,
 
 });
 

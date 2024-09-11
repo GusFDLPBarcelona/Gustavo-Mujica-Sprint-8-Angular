@@ -1,7 +1,7 @@
 <div class="row mt-5">
     <div class="col-lg-4 offset-lg-4">
         <div class="card border-info mb-3" style="max-width: 25rem;">
-            <div class="card-header text-center">Agregar Producto</div>
+            <div class="card-header text-center">{{titulo}} Producto</div>
             <div class="card-body">
                 <form [formGroup]="form" (submit)="agregarProducto()">
                     <input formControlName="nombre" type="text" class="form-control" placeholder="nombre">

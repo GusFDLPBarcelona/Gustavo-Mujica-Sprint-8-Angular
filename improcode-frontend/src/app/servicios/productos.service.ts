@@ -23,22 +23,22 @@ export class ProductosService {
     return this.http.get<Producto[]>(`${this.myAppUrl}${this.myApiUrl}`);
   }
 
-  /*agregarProducto(producto: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, producto);
-  }*/
+  agregarProducto(producto: Producto): Observable<any> {
+    return this.http.post<any>(`${this.myAppUrl}${this.myApiUrl}`, producto);
+  }
 
   eliminarProducto(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.myAppUrl}${this.myApiUrl}${id}`);
+    return this.http.delete<any>(`${this.myAppUrl}${this.myApiUrl}/${id}`);
   }
-  /*
-    editarProducto(id: number, producto: Producto): Observable<any> {
-      return this.http.put<any>(`${this.apiUrl}/${id}`, producto);
-    }
-  
-    obtenerPorId(id: number): Observable<any> {
-      return this.http.get(`${this.apiUrl}/${id}`);
-    }
-    */
+
+  editarProducto(id: number, producto: Producto): Observable<any> {
+    return this.http.put<any>(`${this.myAppUrl}${this.myApiUrl}/${id}`, producto);
+  }
+
+  obtenerPorId(id: number): Observable<any> {
+    return this.http.get(`${this.myAppUrl}${this.myApiUrl}/${id}`);
+  }
+
 }
 
 

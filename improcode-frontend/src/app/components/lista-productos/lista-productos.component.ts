@@ -34,21 +34,26 @@ export class ListaProductosComponent implements OnInit {
   eliminarProducto(id: number): void {
     this.loading = true;
     this.productosService.eliminarProducto(id).subscribe(() => {
-      this.productos = this.productos.filter((producto) => producto.id !== id);
       this.getProductos();
     });
   }
-  /*
-    editarProducto(id: number, producto: Producto): void {
-      console.log(id);
-      this.productosService.editarProducto(id, producto).subscribe()
-    }
-  
-    agregarProducto(): void {
-      const nuevoProducto = { nombre: 'Nuevo Producto' };
-      this.productosService.agregarProducto(nuevoProducto).subscribe((producto: any) => {
-        this.productos.push(producto);
-      });
-    }*/
+
+  editarProducto(id: number, producto: Producto): void {
+    console.log(id);
+    this.productosService.editarProducto(id, producto).subscribe()
+  }
+
+  agregarProducto(): void {
+    const nuevoProducto: Producto = {
+      nombre: 'Nuevo Producto',
+      descripcion: "",
+      talla: "",
+      precio: 0,
+      stock: 0
+    };
+    this.productosService.agregarProducto(nuevoProducto).subscribe((producto: any) => {
+      this.productos.push(producto);
+    });
+  }
 }
 
