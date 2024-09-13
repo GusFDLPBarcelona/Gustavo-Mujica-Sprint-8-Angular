@@ -1,9 +1,8 @@
-import { Component, OnDestroy, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import mapboxgl from 'mapbox-gl';
 import { environment } from '../../../environments/environment';
-import { Marker } from '../../interfaces/markers';
-import { MarkersService } from '../../services/markers.service';
+import { MarcadoresService } from '../../servicios/marcadores.service';
 
 
 @Component({
@@ -18,12 +17,9 @@ export class MapboxComponent implements OnInit, OnDestroy {
   map!: mapboxgl.Map;
   predefinedMarkers: mapboxgl.Marker[] = [];
   dynamicMarkers: mapboxgl.Marker[] = [];
-  allMarkers: Marker[] = [];
-  selectedCategories: Set<string> = new Set();
+  allMarkers: mapboxgl.Marker[] = [];
 
-
-
-  constructor(private _markerService: MarkersService, @Inject(PLATFORM_ID) private platformId: any) { }
+  constructor(private _marcadoresService: MarcadoresService, @Inject(PLATFORM_ID) private platformId: any) { }
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -50,9 +46,9 @@ export class MapboxComponent implements OnInit, OnDestroy {
       zoom: 12
     });
 
-    this.map.on('click', (event) => {
+    this.map.on('click', (event: any) => {
       const { lng, lat } = event.lngLat;
-      const newMarker: Marker = {
+      const newMarker: Marcadores = {
         longitude: lng,
         latitude: lat
       };
@@ -65,11 +61,11 @@ export class MapboxComponent implements OnInit, OnDestroy {
 
 
 
-      this._markerService.createMarker(newMarker).subscribe({
-        next: (response) => {
+      this._marcadoresService.crearMarcador(newMarker).subscribe({
+        next: (response: any) => {
           console.log('Marker saved successfully:', response);
         },
-        error: (error) => {
+        error: (error: any) => {
           console.error('Error saving marker:', error);
         }
       });
@@ -79,38 +75,18 @@ export class MapboxComponent implements OnInit, OnDestroy {
   }
 
   loadPredefinedMarkers() {
-    this._markerService.getMarkers().subscribe({
-      next: (markers) => {
+    this._marcadoresService.getMarcador().subscribe({
+      next: (markers: Marcadores[]) => {
         this.allMarkers = markers;
         this.displayMarkers(markers);
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error('Error loading predefined markers:', error);
       }
     });
   }
 
-  toggleCategory(event: any, category: string) {
-    if (event.target.checked) {
-      this.selectedCategories.add(category);
-    } else {
-      this.selectedCategories.delete(category);
-    }
-    this.filterMarkers();
-  }
-
-  filterMarkers() {
-    this.predefinedMarkers.forEach(marker => marker.remove());
-    this.predefinedMarkers = [];
-
-    const filteredMarkers = this.allMarkers.filter((marker: any) =>
-      this.selectedCategories.size === 0 || this.selectedCategories.has(marker.category)
-    );
-
-    this.displayMarkers(filteredMarkers);
-  }
-
-  displayMarkers(markers: Marker[]) {
+  displayMarkers(markers: Marcadores[]) {
     markers.forEach(markerData => {
       const el = document.createElement('div');
       el.className = 'marker';
@@ -135,11 +111,11 @@ export class MapboxComponent implements OnInit, OnDestroy {
   clearDynamicMarkers() {
     this.dynamicMarkers.forEach(marker => marker.remove());
     this.dynamicMarkers = [];
-    this._markerService.deleteAllMarkers().subscribe({
+    this._marcadoresService.deleteMarcadores().subscribe({
       next: () => {
         console.log('All dynamic markers deleted successfully');
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error('Error deleting all markers:', error);
       }
     });
