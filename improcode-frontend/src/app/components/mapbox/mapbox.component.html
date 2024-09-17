@@ -1,0 +1,18 @@
+<div style="display: flex;">
+    <div id="mapbox" style="width: 75%; height: 500px;"></div>
+    <div style="width: 25%; padding: 10px;">
+
+        <div style="width: 20%; padding: 10px;">
+            <h3>Ubicaciones</h3>
+            <div id="locations">
+                <ul id="location-list" style="list-style-type: none; padding: 0;">
+                    @for (marker of markers; track markers) {
+                    <li>
+                        <strong>{{ marker.name || 'Nuevo marcador' }}</strong><br />
+                        <span class="coordinates">[Lat: {{ marker.latitude }}, Lng: {{ marker.longitude }}]</span>
+                    </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>

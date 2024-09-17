@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from 'express';
 import routesProducto from '../routes/producto';
+import routesMarcador from '../routes/marcadores';
 import db from '../db/connection';
 import cors from 'cors';
 
@@ -8,14 +9,13 @@ class Server {
     private port: string;
 
     constructor() {
-
         this.app = express();
-        this.port = process.env.PORT || '4001';
+        this.port = process.env.PORT || '4000';
         this.listen();
         this.midlewares();
         this.routes();
         this.dbconnect();
-    };
+    }
 
     listen() {
         this.app.listen(this.port, () => {
@@ -24,12 +24,18 @@ class Server {
     }
 
     routes() {
+
         this.app.get('/', (req: Request, res: Response) => {
             res.json({
                 msg: 'API Working'
-            })
-        })
-        this.app.use('/api/productos', routesProducto)
+            });
+        });
+
+
+        this.app.use('/api/productos', routesProducto);
+
+
+        this.app.use('/api/marcadores', routesMarcador);
     }
 
     midlewares() {
@@ -40,14 +46,12 @@ class Server {
     async dbconnect() {
         try {
 
-            await db.authenticate();
-            console.log('base conectada');
-
+            await db.query('SELECT 1');
+            console.log('Base de datos conectada');
         } catch (error) {
-            console.log(error);
-            console.log('error al conectarse a la base de datos');
+            console.error('Error al conectar con la base de datos:', error);
         }
-
     }
 }
+
 export default Server;

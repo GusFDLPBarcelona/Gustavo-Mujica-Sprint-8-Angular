@@ -1,8 +1,12 @@
-import { Sequelize } from 'sequelize';
+import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
 
-const sequelize = new Sequelize('tienda', 'root', '', {
-    host: 'localhost',
-    dialect: 'mysql'
+dotenv.config();
+
+const connection = mysql.createPool({
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    database: process.env.DB_NAME || 'tienda',
 });
 
-export default sequelize;
+export default connection;
