@@ -8,84 +8,73 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateProduct = exports.postProduct = exports.deleteProduct = exports.getProduct = exports.getProducts = void 0;
-const producto_1 = __importDefault(require("../models/producto"));
-const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const listProducts = yield producto_1.default.findAll();
-    res.json(listProducts);
-});
-exports.getProducts = getProducts;
+exports.deleteProduct = exports.updateProduct = exports.postProduct = exports.getProducts = exports.getProduct = void 0;
+const producto_1 = require("../models/producto");
 const getProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const product = yield producto_1.default.findByPk(id);
-    if (product) {
-        res.json(product);
+    try {
+        const producto = yield (0, producto_1.getProducto)(Number(id));
+        res.json(producto);
     }
-    else {
-        res.status(404).json({
-            msg: `No existe producto con el id ${id}`
-        });
+    catch (error) {
+        res.status(500).json({ error: 'Error al obtener el producto' });
     }
 });
 exports.getProduct = getProduct;
-const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const product = yield producto_1.default.findByPk(id);
-    if (!product) {
-        res.status(404).json({
-            msg: `No existe un producto con el id ${id}`
-        });
-    }
-    else {
-        yield product.destroy();
-        res.json({
-            msg: `El producto se eliminó con éxito`
-        });
-    }
-});
-exports.deleteProduct = deleteProduct;
-const postProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { body } = req;
+const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield producto_1.default.create(body);
-        res.json({
-            msg: 'El producto se agregó correctamente.',
-        });
+        const productos = yield (0, producto_1.getProductos)();
+        res.json(productos);
     }
     catch (error) {
-        console.log(error);
-        res.json({
-            msg: `Error, contacte al servicio técnico.`
-        });
+        res.status(500).json({ error: 'Error al obtener los productos' });
+    }
+});
+exports.getProducts = getProducts;
+const postProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { nombre, descripcion, talla, precio, stock } = req.body;
+    try {
+        const result = yield (0, producto_1.createProducto)(nombre, descripcion, talla, Number(precio), Number(stock));
+        res.status(201).json(result);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error al crear el producto' });
     }
 });
 exports.postProduct = postProduct;
 const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { body } = req;
     const { id } = req.params;
+    const { nombre, descripcion, talla, precio, stock } = req.body;
     try {
-        const product = yield producto_1.default.findByPk(id);
-        if (product) {
-            yield product.update(body);
-            res.json({
-                msg: `El producto fué actualizado con éxito.`
+        const productoExistente = yield (0, producto_1.getProducto)(Number(id));
+        if (!productoExistente) {
+            return res.status(404).json({
+                msg: `No existe el producto con id ${id}`
             });
         }
-        else {
-            res.status(404).json({
-                msg: `No existe el producto`
-            });
-        }
+        const result = yield (0, producto_1.updateProducto)(Number(id), nombre, descripcion, talla, Number(precio), Number(stock));
+        res.json({
+            msg: `El producto fue actualizado con éxito.`,
+            result
+        });
     }
     catch (error) {
         console.log(error);
-        res.json({
-            msg: `Ha ocurrido un error.`
+        res.status(500).json({
+            msg: `Ha ocurrido un error al actualizar el producto.`
         });
     }
 });
 exports.updateProduct = updateProduct;
+const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const result = yield (0, producto_1.deleteProducto)(Number(id));
+        res.json(result);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error al eliminar el producto' });
+    }
+});
+exports.deleteProduct = deleteProduct;

@@ -34,6 +34,7 @@ export class AgregarEditarComponent implements OnInit {
       console.log(data.producto);
       this.form.patchValue(data.producto);
       if (this.form.value !== undefined) {
+        console.log('entras? kullons!!');
         this.titulo = 'Editar';
       }
     })
