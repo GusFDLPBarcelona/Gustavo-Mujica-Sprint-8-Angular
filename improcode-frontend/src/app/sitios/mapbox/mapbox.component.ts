@@ -5,7 +5,7 @@ import { Marker } from '../../interfaces/marker';
 
 @Component({
     selector: 'app-mapbox',
-    templateUrl: './mapbox.component.html',
+    templateUrl: 'mapbox.component.html',
     styleUrls: ['./mapbox.component.css']
 })
 export class MapboxComponent implements OnInit {
@@ -14,8 +14,18 @@ export class MapboxComponent implements OnInit {
     markers: Marker[] = [];
     existingMarkers: mapboxgl.Marker[] = [];
 
+    goToLocation(lat: number, lng: number) {
+
+        console.log(location)
+        this.map.flyTo({
+            center: [lng, lat],
+            zoom: 14,
+            essential: true
+        });
+    }
 
     predefinedLocations: Marker[] = [
+
         { name: 'Tienda NandoVivas, Urquinaona', latitude: 41.3851, longitude: 2.1734 },
         { name: 'Tienda NandoVivas, Eixample', latitude: 41.390205, longitude: 2.154007 },
         { name: 'Tienda NandoVivas, Barceloneta', latitude: 41.377491, longitude: 2.188996 },
@@ -61,7 +71,6 @@ export class MapboxComponent implements OnInit {
                     }
 
                     this.addMarker(lat, lng, placeName);
-                    this.updateLocationList();
                 });
             });
         });
@@ -70,6 +79,7 @@ export class MapboxComponent implements OnInit {
 
 
     initializeMap() {
+
         (mapboxgl as any).accessToken = 'pk.eyJ1IjoiZ2VqbWciLCJhIjoiY20xM3pvNjF5MTAzOTJqczFiOW16NDVwYSJ9.zAJksreKN7R6K2S2Q_41Cg';
         this.map = new mapboxgl.Map({
             container: 'mapbox',
@@ -81,16 +91,16 @@ export class MapboxComponent implements OnInit {
 
 
     loadPredefinedLocations() {
-        this.predefinedLocations.forEach(location => {
 
+        this.markers = [...this.predefinedLocations];
+        this.predefinedLocations.forEach(location => {
             this.addMarker(location.latitude, location.longitude, location.name);
         });
-
-        this.updateLocationList();
     }
 
 
     addMarker(lat: number, lng: number, name?: string) {
+
         const marker = new mapboxgl.Marker()
             .setLngLat([lng, lat])
             .addTo(this.map);
@@ -105,6 +115,7 @@ export class MapboxComponent implements OnInit {
 
 
     saveMarker(marker: Marker) {
+
         this.mapboxService.createMarker(marker).subscribe({
             next: (response) => {
                 console.log('Marcador guardado:', response);
@@ -121,6 +132,7 @@ export class MapboxComponent implements OnInit {
 
 
     updateLocationList() {
+
         const locationList = document.getElementById('location-list');
         if (locationList) {
             locationList.innerHTML = '';

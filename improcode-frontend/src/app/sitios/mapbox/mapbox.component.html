@@ -6,10 +6,12 @@
             <h3>Ubicaciones</h3>
             <div id="locations">
                 <ul id="location-list" style="list-style-type: none; padding: 0;">
-                    @for (marker of markers; track markers) {
+                    @for (marker of markers; track marker) {
                     <li>
-                        <strong>{{ marker.name || 'Nuevo marcador' }}</strong><br />
-                        <span class="coordinates">[Lat: {{ marker.latitude }}, Lng: {{ marker.longitude }}]</span>
+                        <button (click)="goToLocation(marker.latitude, marker.longitude)">
+                            <strong>{{ marker.name || 'Nuevo marcador' }}</strong><br />
+                            <span class="coordinates">[Lat: {{ marker.latitude }}, Lng: {{ marker.longitude }}]</span>
+                        </button>
                     </li>
                     }
                 </ul>

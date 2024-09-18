@@ -1,0 +1,59 @@
+#locations {
+    font-size: 10px; 
+    text-align: left;
+    padding: 10px;
+    width: 200px; 
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    overflow-y: auto; 
+    max-height: 500px;
+    word-wrap: break-word; 
+    white-space: normal; 
+    margin-bottom: 8px;
+    margin-bottom: 15px; 
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+.locations li {
+    margin-bottom: 8px;
+    margin-bottom: 15px; 
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    
+}
+
+.location-list li {
+    margin-bottom: 25px;
+}
+
+.locations strong {
+    text-align: left;
+    font-size: 16px; 
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold; 
+}
+
+#locations .coordinates {
+    text-align: left;
+    font-size: 10px; 
+    color: #666; 
+}
+button {
+    background-color: #4CAF50; /* Color de fondo verde */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 10px 20px; /* Espaciado dentro del botón */
+    text-align: left; /* Alinear el texto a la izquierda */
+    text-decoration: none; /* Sin subrayado */
+    display: inline-block; /* Asegurar que sea un botón */
+    font-size: 12px; /* Tamaño de la fuente */
+    margin-bottom: 10px; /* Espacio entre botones */
+    cursor: pointer; /* Cambiar cursor a pointer */
+    width: 100%; /* Asegurar que ocupe todo el ancho */
+}
+
+button:hover {
+    background-color: #45a049; /* Color de fondo al pasar el cursor */
+}
