@@ -115,7 +115,7 @@ export const updateEvent = async (req: Request, res: Response) => {
         const response = await calendar.events.update({
             key: apiKey,
             calendarId: 'primary',
-            eventId: eventId,  // ID del evento que se quiere actualizar
+            eventId: eventId,
             requestBody: event,
         });
 

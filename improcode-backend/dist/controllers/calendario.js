@@ -121,7 +121,7 @@ const updateEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const response = yield calendar.events.update({
             key: apiKey,
             calendarId: 'primary',
-            eventId: eventId, // ID del evento que se quiere actualizar
+            eventId: eventId,
             requestBody: event,
         });
         res.status(200).json({

@@ -1,10 +1,33 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class EventosService {
 
-  constructor() { }
-}
+  private apiUrl = 'http://localhost:4000/api/calendario';
 
+  constructor(private http: HttpClient) { }
+
+  createEvent(eventData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/create`, eventData);
+  }
+
+  getEvents(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/events`);
+  }
+
+  getEventById(eventId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/events/${eventId}`);
+  }
+
+  updateEvent(eventId: string, eventData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/events/${eventId}`, eventData);
+  }
+
+  deleteEvent(eventId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/events/${eventId}`);
+  }
+}

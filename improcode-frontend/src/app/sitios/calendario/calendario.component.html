@@ -1,15 +1,75 @@
-<div class="card">
-    <p id="title">Agenda</p>
-    <form [formGroup]="appointmentForm" (submit)="scheludeMeeting()">
+<div class="container">
+
+    <h2>Agenda de Eventos</h2>
+
+    <form [formGroup]="appointmentForm" (submit)="onSubmit()">
         <div class="form-group">
-            <label for="appointmentTime">Hora del Evento</label>
-            <input type="datetime-local" id="appointmentTime" formControlName="appointmentTime" />
+            <label for="summary">Título del Evento</label>
+            <input type="text" id="summary" formControlName="summary" class="form-control"
+                placeholder="Título del Evento">
+
+            @if (appointmentForm.get('summary')?.invalid && appointmentForm.get('summary')?.touched) {
+            <div>
+                @if (appointmentForm.get('summary')?.errors?.['required']) {
+                <small class="text-danger">El título del evento es obligatorio.</small>
+                }
+            </div>
+            }
         </div>
+
         <div class="form-group">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" class="form-control" formControlName="email" />
+            <label for="startDateTime">Fecha y Hora de Inicio</label>
+            <input type="datetime-local" id="startDateTime" formControlName="startDateTime" class="form-control">
+
+            @if (appointmentForm.get('startDateTime')?.invalid && appointmentForm.get('startDateTime')?.touched) {
+            <div>
+                @if (appointmentForm.get('startDateTime')?.errors?.['required']) {
+                <small class="text-danger">La fecha y hora de inicio son obligatorias.</small>
+                }
+            </div>
+            }
         </div>
-        <br />
-        <button type="submit" id="scheude-button">Evento Agendado</button>
+
+        <div class="form-group">
+            <label for="endDateTime">Fecha y Hora de Finalización</label>
+            <input type="datetime-local" id="endDateTime" formControlName="endDateTime" class="form-control">
+
+            @if (appointmentForm.get('endDateTime')?.invalid && appointmentForm.get('endDateTime')?.touched) {
+            <div>
+                @if (appointmentForm.get('endDateTime')?.errors?.['required']) {
+                <small class="text-danger">La fecha y hora de fin son obligatorias.</small>
+                }
+            </div>
+            }
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="appointmentForm.invalid">
+            {{ submitButtonText }}
+        </button>
+
     </form>
+
+    <hr>
+
+    <h3>Eventos Programados</h3>
+    @if (events.length > 0) {
+    <ul class="list-group">
+        @for (event of events; track event.id) {
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <h5>{{ event.summary }}</h5>
+                <p>{{ event.start?.dateTime | date: 'medium' }} - {{ event.end?.dateTime | date: 'medium' }}</p>
+                <p>{{ event.location }}</p>
+            </div>
+            <div>
+                <button class="btn btn-secondary" (click)="editEvent(event)">Editar</button>
+                <button class="btn btn-danger" (click)="deleteEvent(event.id)">Eliminar</button>
+            </div>
+        </li>
+        }
+    </ul>
+    } @else {
+    <p>No hay eventos programados.</p>
+    }
+
 </div>
