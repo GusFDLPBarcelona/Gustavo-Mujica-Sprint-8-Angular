@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import routesProducto from '../routes/producto';
 import routesMarcador from '../routes/marcadores';
+import routesCalendario from '../routes/calendario';
 import db from '../db/connection';
 import cors from 'cors';
 
@@ -31,11 +32,9 @@ class Server {
             });
         });
 
-
         this.app.use('/api/productos', routesProducto);
-
-
         this.app.use('/api/marcadores', routesMarcador);
+        this.app.use('/api/calendario', routesCalendario);
     }
 
     midlewares() {

@@ -1,1 +1,15 @@
-<p>calendario works!</p>
+<div class="card">
+    <p id="title">Agenda</p>
+    <form [formGroup]="appointmentForm" (submit)="scheludeMeeting()">
+        <div class="form-group">
+            <label for="appointmentTime">Hora del Evento</label>
+            <input type="datetime-local" id="appointmentTime" formControlName="appointmentTime" />
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" class="form-control" formControlName="email" />
+        </div>
+        <br />
+        <button type="submit" id="scheude-button">Evento Agendado</button>
+    </form>
+</div>

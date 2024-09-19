@@ -5,14 +5,15 @@ import { ListaProductosComponent } from "./components/lista-productos/lista-prod
 import { AgregarEditarComponent } from "./components/agregar-editar/agregar-editar.component";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
+import { BrowserModule } from "@angular/platform-browser";
 
 
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, ListaProductosComponent, AgregarEditarComponent, CommonModule, AppComponent, ReactiveFormsModule,],
+  imports: [RouterOutlet, NavbarComponent, ListaProductosComponent, AgregarEditarComponent, CommonModule, AppComponent, ReactiveFormsModule, BrowserModule, AppComponent],
   templateUrl: "./app.component.html",
-  styleUrl: "./app.component.css"
+  styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
   title = "improcode-frontend";

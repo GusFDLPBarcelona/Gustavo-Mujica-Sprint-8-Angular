@@ -3,6 +3,7 @@ import { getMarkers, addMarker, deleteMarker } from '../models/marcadores';
 
 
 export const getAllMarkers = async (req: Request, res: Response) => {
+
     try {
         const markers = await getMarkers();
         res.json(markers);
@@ -13,12 +14,13 @@ export const getAllMarkers = async (req: Request, res: Response) => {
 
 
 export const createMarker = async (req: Request, res: Response) => {
-    const { latitude, longitude, name } = req.body;  // Obtener el nombre además de latitud y longitud
+
+    const { latitude, longitude, name } = req.body;
     try {
         const result = await addMarker(
             Number(latitude),
             Number(longitude),
-            name || ''  // Si no se pasa un nombre, usar un valor vacío
+            name || ''
         );
         res.json({ message: 'Marcador añadido', result });
     } catch (error: any) {
@@ -32,6 +34,7 @@ export const createMarker = async (req: Request, res: Response) => {
 
 
 export const removeMarker = async (req: Request, res: Response) => {
+
     const { id } = req.params;
     try {
         await deleteMarker(Number(id));

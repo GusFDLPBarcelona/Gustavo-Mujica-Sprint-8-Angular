@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const producto_1 = __importDefault(require("../routes/producto"));
 const marcadores_1 = __importDefault(require("../routes/marcadores"));
+const calendario_1 = __importDefault(require("../routes/calendario"));
 const connection_1 = __importDefault(require("../db/connection"));
 const cors_1 = __importDefault(require("cors"));
 class Server {
@@ -39,6 +40,7 @@ class Server {
         });
         this.app.use('/api/productos', producto_1.default);
         this.app.use('/api/marcadores', marcadores_1.default);
+        this.app.use('/api/calendario', calendario_1.default);
     }
     midlewares() {
         this.app.use(express_1.default.json());

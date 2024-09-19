@@ -22,10 +22,9 @@ const getAllMarkers = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.getAllMarkers = getAllMarkers;
 const createMarker = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { latitude, longitude, name } = req.body; // Obtener el nombre además de latitud y longitud
+    const { latitude, longitude, name } = req.body;
     try {
-        const result = yield (0, marcadores_1.addMarker)(Number(latitude), Number(longitude), name || '' // Si no se pasa un nombre, usar un valor vacío
-        );
+        const result = yield (0, marcadores_1.addMarker)(Number(latitude), Number(longitude), name || '');
         res.json({ message: 'Marcador añadido', result });
     }
     catch (error) {
