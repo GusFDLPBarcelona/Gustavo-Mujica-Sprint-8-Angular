@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Agenda } from '../interfaces/agenda';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class EventosService {
 
   private apiUrl = 'http://localhost:4000/api/calendario';
@@ -15,8 +17,8 @@ export class EventosService {
     return this.http.post(`${this.apiUrl}/create`, eventData);
   }
 
-  getEvents(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/events`);
+  getEvents(): Observable<Agenda[]> {
+    return this.http.get<Agenda[]>(`${this.apiUrl}/events`);
   }
 
   getEventById(eventId: string): Observable<any> {

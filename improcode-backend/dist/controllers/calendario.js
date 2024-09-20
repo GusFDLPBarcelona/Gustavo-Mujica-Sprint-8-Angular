@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteEvent = exports.updateEvent = exports.getEventById = exports.getAllEvents = exports.createEvent = void 0;
 const googleapis_1 = require("googleapis");
 const calendar = googleapis_1.google.calendar('v3');
-const apiKey = process.env.AIzaSyA6u0yN3fc5pTvJp_bTWBwsVNsr6XJegaw;
+const apiKey = process.env.GOOGLE_API_KEY;
 const createEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { summary, location, description, startDateTime, endDateTime } = req.body;
@@ -26,12 +26,12 @@ const createEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             },
             end: {
                 dateTime: endDateTime,
-                timeZone: 'Europa/MAdrid',
+                timeZone: 'Europa/Madrid',
             },
         };
         const response = yield calendar.events.insert({
             key: apiKey,
-            calendarId: 'Agenda de Eventos',
+            calendarId: 'primary',
             requestBody: event,
         });
         res.status(200).json({

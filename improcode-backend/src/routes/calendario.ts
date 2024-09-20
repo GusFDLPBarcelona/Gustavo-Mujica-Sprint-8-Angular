@@ -3,10 +3,10 @@ import { createEvent, getAllEvents, getEventById, deleteEvent, updateEvent } fro
 
 const router = Router();
 
-router.post('/create', createEvent);
-router.get('/events', getAllEvents);
-router.get('/events/:eventId', getEventById);
-router.put('/events/:eventId', updateEvent);
-router.delete('/events/:eventId', deleteEvent);
+router.post('/', createEvent);
+router.get('/', getAllEvents);
+router.get('/:eventId', getEventById);
+router.put('/:eventId', updateEvent);
+router.delete('/:eventId', deleteEvent);
 
 export default router;

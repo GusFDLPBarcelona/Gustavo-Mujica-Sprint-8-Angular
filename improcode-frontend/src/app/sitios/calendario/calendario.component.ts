@@ -23,6 +23,7 @@ export class CalendarioComponent implements OnInit {
 
   ngOnInit() {
     this.appointmentForm = this.fb.group({
+
       summary: ['', Validators.required],
       location: [''],
       description: [''],

@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 
 const calendar = google.calendar('v3');
 
-const apiKey = process.env.AIzaSyA6u0yN3fc5pTvJp_bTWBwsVNsr6XJegaw;
+const apiKey = process.env.GOOGLE_API_KEY;
 
 export const createEvent = async (req: Request, res: Response) => {
     try {
@@ -19,13 +19,13 @@ export const createEvent = async (req: Request, res: Response) => {
             },
             end: {
                 dateTime: endDateTime,
-                timeZone: 'Europa/MAdrid',
+                timeZone: 'Europa/Madrid',
             },
         };
 
         const response = await calendar.events.insert({
             key: apiKey,
-            calendarId: 'Agenda de Eventos',
+            calendarId: 'primary',
             requestBody: event,
         });
 
