@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const calendario_1 = require("../controllers/calendario");
 const router = (0, express_1.Router)();
-router.post('/', calendario_1.createEvent);
+router.post('/create', calendario_1.createEvent);
 router.get('/', calendario_1.getAllEvents);
 router.get('/:eventId', calendario_1.getEventById);
 router.put('/:eventId', calendario_1.updateEvent);

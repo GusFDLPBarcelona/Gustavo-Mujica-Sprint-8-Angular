@@ -18,18 +18,20 @@ export class EventosService {
   }
 
   getEvents(): Observable<Agenda[]> {
-    return this.http.get<Agenda[]>(`${this.apiUrl}/events`);
+    debugger
+    return this.http.get<Agenda[]>(`${this.apiUrl}/`);
   }
 
   getEventById(eventId: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/events/${eventId}`);
+    return this.http.get<any>(`${this.apiUrl}/${eventId}`);
   }
 
   updateEvent(eventId: string, eventData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/events/${eventId}`, eventData);
+    return this.http.put(`${this.apiUrl}/${eventId}`, eventData);
   }
 
   deleteEvent(eventId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/events/${eventId}`);
+    return this.http.delete(`${this.apiUrl}/${eventId}`);
   }
 }
+

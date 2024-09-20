@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^18.2.4",
+    "@angular/animations": "^18.2.5",
     "@angular/common": "^18.2.4",
     "@angular/compiler": "^18.2.4",
     "@angular/core": "^18.2.4",
@@ -19,6 +19,7 @@
     "@angular/platform-browser": "^18.2.4",
     "@angular/platform-browser-dynamic": "^18.2.4",
     "@angular/router": "^18.2.4",
+    "@googleapis/calendar": "^9.7.9",
     "mapbox-gl": "^2.15.0",
     "ngx-mapbox-gl": "^11.0.1",
     "ngx-toastr": "^19.0.0",

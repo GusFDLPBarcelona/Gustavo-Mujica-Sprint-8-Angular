@@ -1,19 +1,10 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteEvent = exports.updateEvent = exports.getEventById = exports.getAllEvents = exports.createEvent = void 0;
 const googleapis_1 = require("googleapis");
 const calendar = googleapis_1.google.calendar('v3');
 const apiKey = process.env.GOOGLE_API_KEY;
-const createEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const createEvent = async (req, res) => {
     try {
         const { summary, location, description, startDateTime, endDateTime } = req.body;
         const event = {
@@ -22,14 +13,14 @@ const createEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             description,
             start: {
                 dateTime: startDateTime,
-                timeZone: 'Europa/MAdrid',
+                timeZone: 'Europa/Madrid',
             },
             end: {
                 dateTime: endDateTime,
                 timeZone: 'Europa/Madrid',
             },
         };
-        const response = yield calendar.events.insert({
+        const response = await calendar.events.insert({
             key: apiKey,
             calendarId: 'primary',
             requestBody: event,
@@ -52,17 +43,19 @@ const createEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             });
         }
     }
-});
+};
 exports.createEvent = createEvent;
-const getAllEvents = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllEvents = async (req, res) => {
+    console.log('getAllEvents');
     try {
-        const response = yield calendar.events.list({
+        const response = await calendar.events.list({
             key: apiKey,
             calendarId: 'primary',
         });
         res.status(200).json(response.data.items);
     }
     catch (error) {
+        console.error(error);
         if (error instanceof Error) {
             res.status(500).json({
                 message: 'Error al obtener los Eventos',
@@ -75,21 +68,22 @@ const getAllEvents = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             });
         }
     }
-});
+};
 exports.getAllEvents = getAllEvents;
-const getEventById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getEventById = async (req, res) => {
     const { eventId } = req.params;
     try {
-        const response = yield calendar.events.get({
+        const response = await calendar.events.get({
             key: apiKey,
             calendarId: 'primary',
             eventId: eventId,
         });
+        res.status(200).json(response.data);
     }
     catch (error) {
         if (error instanceof Error) {
             res.status(500).json({
-                message: 'Error al obtener el Eventos seleccionado',
+                message: 'Error al obtener el Evento seleccionado',
                 error: error.message,
             });
         }
@@ -99,9 +93,9 @@ const getEventById = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             });
         }
     }
-});
+};
 exports.getEventById = getEventById;
-const updateEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const updateEvent = async (req, res) => {
     const { eventId } = req.params;
     const { summary, location, description, startDateTime, endDateTime } = req.body;
     try {
@@ -118,7 +112,7 @@ const updateEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 timeZone: 'America/New_York',
             },
         };
-        const response = yield calendar.events.update({
+        const response = await calendar.events.update({
             key: apiKey,
             calendarId: 'primary',
             eventId: eventId,
@@ -142,12 +136,12 @@ const updateEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             });
         }
     }
-});
+};
 exports.updateEvent = updateEvent;
-const deleteEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteEvent = async (req, res) => {
     const { eventId } = req.params;
     try {
-        yield calendar.events.delete({
+        await calendar.events.delete({
             key: apiKey,
             calendarId: 'primary',
             eventId: eventId,
@@ -159,7 +153,7 @@ const deleteEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     catch (error) {
         if (error instanceof Error) {
             res.status(500).json({
-                message: 'Error al obtener el Eventos seleccionado',
+                message: 'Error al eliminar el Evento seleccionado',
                 error: error.message,
             });
         }
@@ -169,5 +163,5 @@ const deleteEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             });
         }
     }
-});
+};
 exports.deleteEvent = deleteEvent;

@@ -2,7 +2,6 @@ import { google } from "googleapis";
 import { Request, Response } from "express";
 
 const calendar = google.calendar('v3');
-
 const apiKey = process.env.GOOGLE_API_KEY;
 
 export const createEvent = async (req: Request, res: Response) => {
@@ -15,7 +14,7 @@ export const createEvent = async (req: Request, res: Response) => {
             description,
             start: {
                 dateTime: startDateTime,
-                timeZone: 'Europa/MAdrid',
+                timeZone: 'Europa/Madrid',
             },
             end: {
                 dateTime: endDateTime,
@@ -49,6 +48,7 @@ export const createEvent = async (req: Request, res: Response) => {
 };
 
 export const getAllEvents = async (req: Request, res: Response) => {
+    console.log('getAllEvents');
     try {
         const response = await calendar.events.list({
             key: apiKey,
@@ -57,6 +57,7 @@ export const getAllEvents = async (req: Request, res: Response) => {
 
         res.status(200).json(response.data.items);
     } catch (error) {
+        console.error(error);
         if (error instanceof Error) {
             res.status(500).json({
                 message: 'Error al obtener los Eventos',
@@ -79,10 +80,12 @@ export const getEventById = async (req: Request, res: Response) => {
             calendarId: 'primary',
             eventId: eventId,
         });
+
+        res.status(200).json(response.data);
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({
-                message: 'Error al obtener el Eventos seleccionado',
+                message: 'Error al obtener el Evento seleccionado',
                 error: error.message,
             });
         } else {
@@ -137,7 +140,6 @@ export const updateEvent = async (req: Request, res: Response) => {
     }
 };
 
-
 export const deleteEvent = async (req: Request, res: Response) => {
     const { eventId } = req.params;
 
@@ -155,7 +157,7 @@ export const deleteEvent = async (req: Request, res: Response) => {
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({
-                message: 'Error al obtener el Eventos seleccionado',
+                message: 'Error al eliminar el Evento seleccionado',
                 error: error.message,
             });
         } else {
@@ -165,4 +167,3 @@ export const deleteEvent = async (req: Request, res: Response) => {
         }
     }
 };
-

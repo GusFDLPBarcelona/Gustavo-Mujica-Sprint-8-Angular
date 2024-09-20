@@ -1,30 +1,21 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.removeMarker = exports.createMarker = exports.getAllMarkers = void 0;
 const marcadores_1 = require("../models/marcadores");
-const getAllMarkers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllMarkers = async (req, res) => {
     try {
-        const markers = yield (0, marcadores_1.getMarkers)();
+        const markers = await (0, marcadores_1.getMarkers)();
         res.json(markers);
     }
     catch (error) {
         res.status(500).json({ error: 'Error al obtener los marcadores' });
     }
-});
+};
 exports.getAllMarkers = getAllMarkers;
-const createMarker = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const createMarker = async (req, res) => {
     const { latitude, longitude, name } = req.body;
     try {
-        const result = yield (0, marcadores_1.addMarker)(Number(latitude), Number(longitude), name || '');
+        const result = await (0, marcadores_1.addMarker)(Number(latitude), Number(longitude), name || '');
         res.json({ message: 'Marcador añadido', result });
     }
     catch (error) {
@@ -35,16 +26,16 @@ const createMarker = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             res.status(500).json({ error: 'Error al añadir el marcador' });
         }
     }
-});
+};
 exports.createMarker = createMarker;
-const removeMarker = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const removeMarker = async (req, res) => {
     const { id } = req.params;
     try {
-        yield (0, marcadores_1.deleteMarker)(Number(id));
+        await (0, marcadores_1.deleteMarker)(Number(id));
         res.json({ message: 'Marcador eliminado' });
     }
     catch (error) {
         res.status(500).json({ error: 'Error al eliminar el marcador' });
     }
-});
+};
 exports.removeMarker = removeMarker;

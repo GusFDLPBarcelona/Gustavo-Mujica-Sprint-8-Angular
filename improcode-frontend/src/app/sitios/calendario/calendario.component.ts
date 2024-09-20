@@ -70,6 +70,7 @@ export class CalendarioComponent implements OnInit {
   loadEvents() {
     this.eventosService.getEvents().subscribe({
       next: (events: Agenda[]) => {
+        console.log(events);
         this.events = events;
       },
       error: (error) => {
