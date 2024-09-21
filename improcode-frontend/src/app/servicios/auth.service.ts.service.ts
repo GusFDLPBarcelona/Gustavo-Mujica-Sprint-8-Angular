@@ -9,8 +9,7 @@ export class AuthService {
 
   constructor() {
     this.oauth2Client = new OAuth2Client(
-      '842510604963-pc10r1b204dbnqu2g87qd0niu03gg704.apps.googleusercontent.com',
-      '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',
+
       'http://localhost:4200'
     );
   }
