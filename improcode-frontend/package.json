@@ -20,6 +20,8 @@
     "@angular/platform-browser-dynamic": "^18.2.5",
     "@angular/router": "^18.2.5",
     "@googleapis/calendar": "^9.7.9",
+    "gapi-script": "^1.2.0",
+    "google-auth-library": "^9.14.1",
     "mapbox-gl": "^2.15.0",
     "ngx-mapbox-gl": "^11.0.1",
     "ngx-toastr": "^19.0.0",

@@ -1,8 +1,11 @@
 import { Router } from 'express';
-import { createEvent, getAllEvents, getEventById, deleteEvent, updateEvent } from '../controllers/calendario';
+import { getAuthUrl, oauth2callback, createEvent, getAllEvents, getEventById, deleteEvent, updateEvent, checkAuth } from '../controllers/calendario';
 
 const router = Router();
 
+router.get('/auth', getAuthUrl);
+router.get('/oauth2callback', oauth2callback);
+router.get('/checkAuth', checkAuth);
 router.post('/create', createEvent);
 router.get('/', getAllEvents);
 router.get('/:eventId', getEventById);

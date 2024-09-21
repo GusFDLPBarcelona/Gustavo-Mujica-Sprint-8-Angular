@@ -4,6 +4,10 @@ import routesMarcador from '../routes/marcadores';
 import routesCalendario from '../routes/calendario';
 import db from '../db/connection';
 import cors from 'cors';
+import session from 'express-session';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 class Server {
     private app: Application;
@@ -20,12 +24,22 @@ class Server {
 
     listen() {
         this.app.listen(this.port, () => {
-            console.log(`Aplicacion corriendo en el puerto ${this.port}`)
+            console.log(`Aplicacion corriendo en el puerto ${this.port}`);
         });
     }
 
-    routes() {
+    midlewares() {
+        this.app.use(express.json());
+        this.app.use(cors({ origin: 'http://localhost:4200/sitios/calendario', credentials: true }));
+        this.app.use(session({
+            secret: process.env.SESSION_SECRET || 'fallbackSecret',
+            resave: false,
+            saveUninitialized: true,
+            cookie: { secure: false }
+        }));
+    }
 
+    routes() {
         this.app.get('/', (req: Request, res: Response) => {
             res.json({
                 msg: 'API Working'
@@ -37,14 +51,8 @@ class Server {
         this.app.use('/api/calendario', routesCalendario);
     }
 
-    midlewares() {
-        this.app.use(express.json());
-        this.app.use(cors());
-    }
-
     async dbconnect() {
         try {
-
             await db.query('SELECT 1');
             console.log('Base de datos conectada');
         } catch (error) {

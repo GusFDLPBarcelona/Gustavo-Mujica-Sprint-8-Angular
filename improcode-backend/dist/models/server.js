@@ -9,6 +9,9 @@ const marcadores_1 = __importDefault(require("../routes/marcadores"));
 const calendario_1 = __importDefault(require("../routes/calendario"));
 const connection_1 = __importDefault(require("../db/connection"));
 const cors_1 = __importDefault(require("cors"));
+const express_session_1 = __importDefault(require("express-session"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -23,6 +26,16 @@ class Server {
             console.log(`Aplicacion corriendo en el puerto ${this.port}`);
         });
     }
+    midlewares() {
+        this.app.use(express_1.default.json());
+        this.app.use((0, cors_1.default)({ origin: 'http://localhost:4200/sitios/calendario', credentials: true }));
+        this.app.use((0, express_session_1.default)({
+            secret: process.env.SESSION_SECRET || 'fallbackSecret',
+            resave: false,
+            saveUninitialized: true,
+            cookie: { secure: false }
+        }));
+    }
     routes() {
         this.app.get('/', (req, res) => {
             res.json({
@@ -32,10 +45,6 @@ class Server {
         this.app.use('/api/productos', producto_1.default);
         this.app.use('/api/marcadores', marcadores_1.default);
         this.app.use('/api/calendario', calendario_1.default);
-    }
-    midlewares() {
-        this.app.use(express_1.default.json());
-        this.app.use((0, cors_1.default)());
     }
     async dbconnect() {
         try {
