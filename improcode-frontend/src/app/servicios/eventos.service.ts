@@ -1,44 +1,34 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Evento } from '../interfaces/eventos';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventosService {
-  private apiUrl = 'http://localhost:4000/api/calendario';
+  private apiUrl = `${environment.endpoint}api/calendario`;
 
   constructor(private http: HttpClient) { }
 
   // Obtener todos los eventos
-  getEvents(): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('access_token')}` // Incluye el token de acceso en la cabecera
-    });
-    return this.http.get(`${this.apiUrl}/events`, { headers });
+  getEventos(): Observable<Evento[]> {
+    return this.http.get<Evento[]>(`${this.apiUrl}/eventos`);
   }
 
   // Crear un nuevo evento
-  createEvent(eventData: any): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('access_token')}` // Incluye el token de acceso en la cabecera
-    });
-    return this.http.post(`${this.apiUrl}/create-event`, eventData, { headers });
+  createEvento(evento: Evento): Observable<Evento> {
+    return this.http.post<Evento>(`${this.apiUrl}/eventos`, evento);
   }
 
-  // Editar un evento por ID
-  updateEvent(id: string, eventData: any): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('access_token')}` // Incluye el token de acceso en la cabecera
-    });
-    return this.http.put(`${this.apiUrl}/events/${id}`, eventData, { headers });
+  // Actualizar un evento existente
+  updateEvento(partialEvento: Partial<Evento>): Observable<Evento> {
+    return this.http.put<Evento>(`${this.apiUrl}/eventos/${partialEvento.id}`, partialEvento);
   }
 
-  // Eliminar un evento por ID
-  deleteEvent(id: string): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('access_token')}` // Incluye el token de acceso en la cabecera
-    });
-    return this.http.delete(`${this.apiUrl}/events/${id}`, { headers });
+  // Eliminar un evento por su ID (aseguramos que sea string si es necesario)
+  deleteEvento(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/eventos/${id}`);
   }
 }
