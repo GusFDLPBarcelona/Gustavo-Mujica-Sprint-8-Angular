@@ -20,5 +20,4 @@ export const routes: Routes = [
         component: AgregarEditarComponent,
         resolve: { producto: editarProductoResolver }
     },
-    { path: '', redirectTo: 'sitios/calendario', pathMatch: 'full' },
 ];

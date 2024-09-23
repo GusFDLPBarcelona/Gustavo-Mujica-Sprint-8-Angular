@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EventosService } from '../../servicios/eventos.service';
+import { AuthService } from '../../servicios/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
@@ -19,7 +20,7 @@ export class CalendarioComponent implements OnInit {
   currentEventId: string | null = null;
   accessToken: string | null = null;
 
-  constructor(private fb: FormBuilder, private eventosService: EventosService) { }
+  constructor(private fb: FormBuilder, private eventosService: EventosService, private authService: AuthService) { }
 
   ngOnInit() {
     this.appointmentForm = this.fb.group({
@@ -30,24 +31,52 @@ export class CalendarioComponent implements OnInit {
       endDateTime: ['', Validators.required]
     });
 
-    this.checkAuthenticationAndLoadEvents();
+    if (window.location.href.includes('code=')) {
+      this.handleOAuthCallback();
+    } else {
+      this.checkAuthenticationAndLoadEvents();
+    }
+  }
+
+  handleOAuthCallback() {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+
+    if (code && !localStorage.getItem('token_obtained')) {
+      this.authService.exchangeCodeForToken(code).subscribe({
+        next: (response: any) => {
+          localStorage.setItem('google_access_token', response.access_token);
+          localStorage.setItem('token_obtained', 'true');
+          this.accessToken = response.access_token;
+          window.history.replaceState({}, document.title, window.location.pathname);
+          this.loadEvents();
+        },
+        error: (err: any) => {
+          console.error('Error al obtener el token', err);
+        }
+      });
+    }
   }
 
   checkAuthenticationAndLoadEvents() {
-    // Verificar si el token está en localStorage
-    this.accessToken = localStorage.getItem('access_token');
+
+    this.accessToken = localStorage.getItem('google_access_token');
 
     if (this.accessToken) {
-      // Si hay token, cargamos los eventos
+
       this.loadEvents();
     } else {
-      // Si no hay token, redirigir a la autenticación
+
       this.redirectToLogin();
     }
   }
 
   redirectToLogin() {
-    window.location.href = 'http://localhost:4000/api/calendario/auth';
+    if (!localStorage.getItem('access_token')) {
+      console.log('deshabilitada temporalmente');
+      window.location.href = 'http://localhost:4000/api/calendario/auth';
+    }
   }
 
   loadEvents() {
@@ -61,11 +90,11 @@ export class CalendarioComponent implements OnInit {
       Authorization: `Bearer ${this.accessToken}`
     });
 
-    this.eventosService.getEvents(headers).subscribe({
-      next: (events) => {
+    this.eventosService.getEvents().subscribe({
+      next: (events: any) => {
         this.events = events;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error al cargar los eventos', err);
       }
     });
@@ -84,7 +113,7 @@ export class CalendarioComponent implements OnInit {
             this.appointmentForm.reset();
             this.loadEvents();
           },
-          error: (err) => {
+          error: (err: any) => {
             alert('Error al actualizar el evento');
             console.error(err);
           }
@@ -96,7 +125,7 @@ export class CalendarioComponent implements OnInit {
             this.appointmentForm.reset();
             this.loadEvents();
           },
-          error: (err) => {
+          error: (err: any) => {
             alert('Error al crear el evento');
             console.error(err);
           }
@@ -115,7 +144,7 @@ export class CalendarioComponent implements OnInit {
         alert('Evento eliminado con éxito');
         this.loadEvents();
       },
-      error: (err) => {
+      error: (err: any) => {
         alert('Error al eliminar el evento');
         console.error(err);
       }

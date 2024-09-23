@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const producto_1 = __importDefault(require("../routes/producto"));
 const marcadores_1 = __importDefault(require("../routes/marcadores"));
-const calendario_1 = __importDefault(require("../routes/calendario"));
+const calendario_1 = __importDefault(require("../routes/calendario")); // Rutas del calendario
 const connection_1 = __importDefault(require("../db/connection"));
 const cors_1 = __importDefault(require("cors"));
 const express_session_1 = __importDefault(require("express-session"));
@@ -28,12 +28,15 @@ class Server {
     }
     midlewares() {
         this.app.use(express_1.default.json());
-        this.app.use((0, cors_1.default)({ origin: 'http://localhost:4200/sitios/calendario', credentials: true }));
+        this.app.use(express_1.default.urlencoded({ extended: true }));
+        // Configuración de CORS
+        this.app.use((0, cors_1.default)({ origin: 'http://localhost:4200', credentials: true }));
+        // Configuración de la sesión para calendario y otros servicios
         this.app.use((0, express_session_1.default)({
-            secret: process.env.SESSION_SECRET || 'fallbackSecret',
+            secret: process.env.SESSION_SECRET || 'your_session_secret',
             resave: false,
             saveUninitialized: true,
-            cookie: { secure: false }
+            cookie: { secure: false } // Cambia a true si usas HTTPS
         }));
     }
     routes() {
@@ -42,8 +45,10 @@ class Server {
                 msg: 'API Working'
             });
         });
+        // Rutas CRUD existentes
         this.app.use('/api/productos', producto_1.default);
         this.app.use('/api/marcadores', marcadores_1.default);
+        // Rutas del calendario
         this.app.use('/api/calendario', calendario_1.default);
     }
     async dbconnect() {

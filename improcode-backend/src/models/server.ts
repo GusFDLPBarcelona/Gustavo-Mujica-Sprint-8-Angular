@@ -1,7 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import routesProducto from '../routes/producto';
 import routesMarcador from '../routes/marcadores';
-import routesCalendario from '../routes/calendario';
+import routesCalendario from '../routes/calendario'; // Rutas del calendario
 import db from '../db/connection';
 import cors from 'cors';
 import session from 'express-session';
@@ -30,12 +30,17 @@ class Server {
 
     midlewares() {
         this.app.use(express.json());
-        this.app.use(cors({ origin: 'http://localhost:4200/sitios/calendario', credentials: true }));
+        this.app.use(express.urlencoded({ extended: true }));
+
+        // Configuración de CORS
+        this.app.use(cors({ origin: 'http://localhost:4200', credentials: true }));
+
+        // Configuración de la sesión para calendario y otros servicios
         this.app.use(session({
-            secret: process.env.SESSION_SECRET || 'fallbackSecret',
+            secret: process.env.SESSION_SECRET || 'your_session_secret',
             resave: false,
             saveUninitialized: true,
-            cookie: { secure: false }
+            cookie: { secure: false } // Cambia a true si usas HTTPS
         }));
     }
 
@@ -46,8 +51,11 @@ class Server {
             });
         });
 
+        // Rutas CRUD existentes
         this.app.use('/api/productos', routesProducto);
         this.app.use('/api/marcadores', routesMarcador);
+
+        // Rutas del calendario
         this.app.use('/api/calendario', routesCalendario);
     }
 

@@ -1,38 +1,26 @@
-import db from '../db/connection';
+import connection from '../db/connection';
 
-export const createEvent = async (summary: string, location: string, description: string, startDateTime: string, endDateTime: string) => {
-
-    const [result] = await db.query(
-        'INSERT INTO eventos (summary, location, description, startDateTime, endDateTime) VALUES (?, ?, ?, ?, ?)',
-        [summary, location, description, startDateTime, endDateTime]
-    );
-    return result;
-};
-
-export const getAllEvents = async () => {
-    const [rows] = await db.query('SELECT * FROM eventos');
-    console.log('rows', rows);
-    return rows;
-};
-
-export const getEventById = async (id: number) => {
-    const [rows] = await db.query<any[]>('SELECT * FROM eventos WHERE id = ?', [id]);
-
-    if (rows.length === 0) {
-        throw new Error('Evento no encontrado');
+export class CalendarioModel {
+    static async getAllEvents() {
+        const [rows] = await connection.query('SELECT * FROM events');
+        return rows;
     }
-    return rows[0];
-};
 
-export const updateEvent = async (id: number, summary: string, location: string, description: string, startDateTime: string, endDateTime: string) => {
-    const [result] = await db.query(
-        'UPDATE eventos SET summary = ?, location = ?, description = ?, startDateTime = ?, endDateTime = ? WHERE id = ?',
-        [summary, location, description, startDateTime, endDateTime, id]
-    );
-    return result;
-};
+    static async createEvent(eventData: any) {
+        const { summary, location, description, startDateTime, endDateTime, googleEventId } = eventData;
+        const query = 'INSERT INTO events (summary, location, description, startDateTime, endDateTime, googleEventId) VALUES (?, ?, ?, ?, ?, ?)';
+        const result = await connection.query(query, [summary, location, description, startDateTime, endDateTime, googleEventId]);
+        return result;
+    }
 
-export const deleteEvent = async (id: number) => {
-    const [result] = await db.query('DELETE FROM eventos WHERE id = ?', [id]);
-    return result;
-};
+    static async updateEvent(eventId: string, eventData: any) {
+        const { summary, location, description, startDateTime, endDateTime } = eventData;
+        const query = 'UPDATE events SET summary = ?, location = ?, description = ?, startDateTime = ?, endDateTime = ? WHERE googleEventId = ?';
+        await connection.query(query, [summary, location, description, startDateTime, endDateTime, eventId]);
+    }
+
+    static async deleteEvent(eventId: string) {
+        const query = 'DELETE FROM events WHERE googleEventId = ?';
+        await connection.query(query, [eventId]);
+    }
+}
