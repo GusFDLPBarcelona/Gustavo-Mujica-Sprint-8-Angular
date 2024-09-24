@@ -1,12 +1,10 @@
 <div class="container">
     <h2>Agenda de Eventos</h2>
 
-    <!-- Formulario para crear/editar un evento -->
     <form [formGroup]="appointmentForm" (submit)="onSubmit()">
         <div class="form-group">
             <label for="summary">Título del Evento</label>
-            <input type="text" id="summary" formControlName="summary" class="form-control"
-                placeholder="Título del Evento">
+            <input type="text" id="summary" formControlName="summary" class="form-control">
             @if (appointmentForm.get('summary')?.invalid && appointmentForm.get('summary')?.touched) {
             <small class="text-danger">
                 @if (appointmentForm.get('summary')?.errors?.['required']) {
@@ -17,7 +15,7 @@
         </div>
 
         <div class="form-group">
-            <label for="startDateTime">Fecha y Hora de Inicio</label>
+            <label for="startDateTime">Fecha y hora de inicio:</label>
             <input type="datetime-local" id="startDateTime" formControlName="startDateTime" class="form-control">
             @if (appointmentForm.get('startDateTime')?.invalid && appointmentForm.get('startDateTime')?.touched) {
             <small class="text-danger">
@@ -29,7 +27,7 @@
         </div>
 
         <div class="form-group">
-            <label for="endDateTime">Fecha y Hora de Finalización</label>
+            <label for="endDateTime">Fecha y hora de final:</label>
             <input type="datetime-local" id="endDateTime" formControlName="endDateTime" class="form-control">
             @if (appointmentForm.get('endDateTime')?.invalid && appointmentForm.get('endDateTime')?.touched) {
             <small class="text-danger">
@@ -40,6 +38,31 @@
             }
         </div>
 
+        <div class="form-group">
+            <label for="location">Ubicación: </label>
+            <input type="text" id="location" formControlName="location" class="form-control">
+            @if (appointmentForm.get('location')?.invalid && appointmentForm.get('location')?.touched) {
+            <small class="text-danger">
+                @if (appointmentForm.get('location')?.errors?.['required']) {
+                La ubicación del evento es obligatoria.
+                }
+            </small>
+            }
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descripción:</label>
+            <textarea id="description" formControlName="description" class="form-control">Descripción:</textarea>
+            @if (appointmentForm.get('description')?.invalid && appointmentForm.get('description')?.touched) {
+            <small class="text-danger">
+                @if (appointmentForm.get('description')?.errors?.['required']) {
+                La descripción del evento es obligatoria.
+                }
+            </small>
+            }
+        </div>
+
+
         <button type="submit" class="btn btn-primary" [disabled]="appointmentForm.invalid">
             {{ submitButtonText }}
         </button>
@@ -47,15 +70,13 @@
 
     <hr>
 
-    <!-- Componente FullCalendar -->
     <h3>Calendario de Eventos</h3>
     <full-calendar [options]="calendarOptions"></full-calendar>
 
-    <!-- Lista de eventos programados -->
     <h3>Eventos Programados</h3>
     @if (eventos.length > 0) {
     <ul class="list-group">
-        @for (event of eventos; track event) {
+        @for (event of eventos; track event.id) {
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
                 <h5>{{ event.summary }}</h5>

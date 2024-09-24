@@ -2,19 +2,17 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteEvento = exports.updateEvento = exports.createEvento = exports.getEventos = void 0;
 const calendario_1 = require("../models/calendario");
-// Obtener todos los eventos
 const getEventos = async (req, res) => {
     try {
-        const eventos = await (0, calendario_1.getAllEventos)();
+        const eventos = await (0, calendario_1.getEventos)();
         res.json(eventos);
     }
     catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al obtener los eventos' });
+        console.error('Error al obtener eventos', error);
+        res.status(500).json({ message: 'Error al obtener eventos' });
     }
 };
 exports.getEventos = getEventos;
-// Crear un nuevo evento
 const createEvento = async (req, res) => {
     try {
         const eventoId = await (0, calendario_1.createEvento)(req.body);
@@ -26,7 +24,6 @@ const createEvento = async (req, res) => {
     }
 };
 exports.createEvento = createEvento;
-// Actualizar un evento por ID
 const updateEvento = async (req, res) => {
     const { id } = req.params;
     try {
@@ -44,7 +41,6 @@ const updateEvento = async (req, res) => {
     }
 };
 exports.updateEvento = updateEvento;
-// Eliminar un evento por ID
 const deleteEvento = async (req, res) => {
     const { id } = req.params;
     try {

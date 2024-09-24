@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from '@fullcalendar/interaction';
 import { EventosService } from '../../servicios/eventos.service';
 import { Evento } from '../../interfaces/eventos';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 
 @Component({
+
   selector: 'app-calendario',
   standalone: true,
   imports: [FullCalendarModule, CommonModule, ReactiveFormsModule],
@@ -35,6 +36,7 @@ export class CalendarioComponent implements OnInit {
     editable: true,
     selectable: true,
     events: [],
+
     eventClick: this.handleEventClick.bind(this),
     dateClick: this.handleDateClick.bind(this),
 
@@ -43,28 +45,37 @@ export class CalendarioComponent implements OnInit {
   constructor(private fb: FormBuilder, private eventosService: EventosService, private http: HttpClient) { }
 
   ngOnInit() {
+
     this.appointmentForm = this.fb.group({
       summary: ['', Validators.required],
       startDateTime: ['', Validators.required],
-      endDateTime: ['', Validators.required]
+      endDateTime: ['', Validators.required],
+      location: ['', Validators.required],
+      description: [''],
     });
 
     this.cargarEventos();
   }
 
   private formatDateToISO(dateString: string): string {
+
     const date = new Date(dateString);
     return date.toISOString();
   }
 
   cargarEventos() {
+
     this.eventosService.getEventos().subscribe({
       next: (eventos: Evento[]) => {
-        // Convertir las fechas a formato ISO si es necesario
+        console.log('eventos recibidos', eventos);
         this.eventos = eventos.map(evento => ({
           ...evento,
-          startDateTime: evento.startDateTime ? new Date(evento.startDateTime).toISOString() : null,
-          endDateTime: evento.endDateTime ? new Date(evento.endDateTime).toISOString() : null,
+          id: evento.id,
+          title: evento.summary,
+          startDateTime: evento.startDateTime ? new Date(evento.startDateTime).toISOString().slice(0, 16) : null,
+          endDateTime: evento.endDateTime ? new Date(evento.endDateTime).toISOString().slice(0, 16) : null,
+          description: evento.description,
+          location: evento.location
         }));
 
         this.calendarOptions.events = this.mapEventosToCalendarEvents(this.eventos);
@@ -76,6 +87,7 @@ export class CalendarioComponent implements OnInit {
   }
 
   private mapEventosToCalendarEvents(eventos: Evento[]): any[] {
+
     return eventos.map(evento => ({
       id: evento.id,
       title: evento.summary,
@@ -83,22 +95,26 @@ export class CalendarioComponent implements OnInit {
       end: evento.endDateTime || evento.startDateTime,
       description: evento.description,
       location: evento.location
+
     }));
   }
 
   handleEventClick(clickInfo: any) {
+    console.log('Info del click en editar evento:', clickInfo);
     const evento = this.eventos.find(e => e.id === clickInfo.event.id);
-    if (evento) {
+    console.log('Evento encontrado para editar:', evento);
+    if (!evento) {
+      console.error('No se encontró el evento con id:', clickInfo.event.id);
+    } else {
+      console.error('No se encontró el evento para editar', evento);
       this.editarEventoFormulario(evento);
     }
   }
 
   handleDateClick(arg: any) {
+
     this.mostrarFormulario = true;
-
-    // Convertimos la fecha al formato esperado por el input datetime-local
     const dateStr = this.formatDateForInput(arg.dateStr);
-
     this.appointmentForm.patchValue({
       startDateTime: dateStr
     });
@@ -107,39 +123,57 @@ export class CalendarioComponent implements OnInit {
     this.eventoEditando = null;
   }
 
-  // Función para formatear la fecha al formato esperado por el input datetime-local
   formatDateForInput(dateStr: string): string {
+
     const date = new Date(dateStr);
-    // Convertimos la fecha al formato yyyy-MM-ddThh:mm
     return date.toISOString().slice(0, 16);
   }
 
 
-  onSubmit(): void {
+  onSubmit() {
     if (this.appointmentForm.valid) {
+      const formValues = this.appointmentForm.value;
+
       const nuevoEvento: Evento = {
+        summary: formValues.summary,
+        location: formValues.location || 'Oficina central',
+        description: formValues.description || '',
+        startDateTime: new Date(formValues.startDateTime).toISOString(),
+        endDateTime: new Date(formValues.endDateTime).toISOString(),
         id: this.eventoEditando ? this.eventoEditando.id : '',
-        summary: this.appointmentForm.get('summary')?.value,
-        startDateTime: this.formatDateToISO(this.appointmentForm.get('startDateTime')?.value),
-        endDateTime: this.formatDateToISO(this.appointmentForm.get('endDateTime')?.value),
-        description: '',
-        location: 'Oficina central'
       };
 
       if (this.eventoEditando) {
-        this.editarEvento(nuevoEvento.id, nuevoEvento);
+
+        this.eventosService.updateEvento(nuevoEvento).subscribe({
+          next: () => {
+            alert('Evento editado con éxito');
+            this.cargarEventos();
+          },
+          error: (error) => console.error('Error al editar el evento', error),
+        });
       } else {
-        this.addEvento(nuevoEvento);
+
+        this.eventosService.createEvento(nuevoEvento).subscribe({
+          next: () => {
+            alert('Evento creado con éxito');
+            this.cargarEventos();
+          },
+          error: (error: any) => console.error('Error al crear el evento', error),
+        });
       }
 
+
+      this.mostrarFormulario = false;
       this.appointmentForm.reset();
       this.submitButtonText = 'Crear Evento';
-      this.mostrarFormulario = false;
       this.eventoEditando = null;
     }
   }
 
-  addEvento(nuevoEvento: Evento) {
+
+  createEvento(nuevoEvento: Evento) {
+
     const evento = {
       ...this.appointmentForm.value,
       startDateTime: this.formatDateForApi(this.appointmentForm.value.startDateTime),
@@ -158,7 +192,7 @@ export class CalendarioComponent implements OnInit {
 
   formatDateForApi(dateStr: string): string {
     const date = new Date(dateStr);
-    return date.toISOString().slice(0, 16);  // 'yyyy-MM-ddThh:mm'
+    return date.toISOString().slice(0, 16);
   }
 
   editarEvento(id: string, cambios: Partial<Evento>) {
@@ -177,27 +211,40 @@ export class CalendarioComponent implements OnInit {
   }
 
   editarEventoFormulario(evento: Evento) {
-    this.mostrarFormulario = true;
-    this.appointmentForm.patchValue({
-      summary: evento.summary,
-      startDateTime: evento.startDateTime,
-      endDateTime: evento.endDateTime
+    console.log('Evento recibido para editar:', evento);
+    console.log('Propiedades del evento:', {
+      id: evento?.id,
+      summary: evento?.summary,
+      startDateTime: evento?.startDateTime,
+      endDateTime: evento?.endDateTime,
+      location: evento.location,
+      description: evento.description
+
     });
+    if (!evento || !evento.startDateTime || !evento.endDateTime || !evento.location || !evento.summary || !evento.description) {
+      console.error('El evento no tiene una propiedad startDateTime válida');
+      console.log(evento);
+      console.log('startDateTime:', evento.startDateTime);
+      console.log('endDateTime:', evento.endDateTime);
+      return;
+    }
+
+    this.mostrarFormulario = true;
     this.submitButtonText = 'Actualizar Evento';
     this.eventoEditando = evento;
-  }
+    const normalizeDate = (fecha: string) => {
+      return fecha ? new Date(fecha).toISOString().slice(0, 16) : '';
+    };
 
-  eliminarEvento(id: string) {
-    this.eventosService.deleteEvento(id).subscribe({
-      next: () => {
-        this.eventos = this.eventos.filter(evento => evento.id !== id);
-        this.calendarOptions.events = this.mapEventosToCalendarEvents(this.eventos);
-      },
-      error: (error) => {
-        console.error('Error al eliminar el evento', error);
-      }
+    this.appointmentForm.patchValue({
+      summary: evento.summary || '',
+      location: evento.location || 'Sin ubicación.',
+      description: evento.description || 'Sin descripción.',
+      startDateTime: normalizeDate(evento.startDateTime),
+      endDateTime: normalizeDate(evento.endDateTime),
     });
   }
+
 
   verTodosLosEventos() {
     console.log('Eventos actuales:', this.eventos);

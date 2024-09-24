@@ -1,18 +1,16 @@
 import { Request, Response } from 'express';
-import { getAllEventos, createEvento as createEventoModel, updateEvento as updateEventoModel, deleteEvento as deleteEventoModel } from '../models/calendario';
+import { getEventos as getEventosModel, createEvento as createEventoModel, updateEvento as updateEventoModel, deleteEvento as deleteEventoModel } from '../models/calendario';
 
-// Obtener todos los eventos
 export const getEventos = async (req: Request, res: Response) => {
     try {
-        const eventos = await getAllEventos();
+        const eventos = await getEventosModel();
         res.json(eventos);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al obtener los eventos' });
+        console.error('Error al obtener eventos', error);
+        res.status(500).json({ message: 'Error al obtener eventos' });
     }
 };
 
-// Crear un nuevo evento
 export const createEvento = async (req: Request, res: Response) => {
     try {
         const eventoId = await createEventoModel(req.body);
@@ -23,7 +21,6 @@ export const createEvento = async (req: Request, res: Response) => {
     }
 };
 
-// Actualizar un evento por ID
 export const updateEvento = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
@@ -39,7 +36,6 @@ export const updateEvento = async (req: Request, res: Response) => {
     }
 };
 
-// Eliminar un evento por ID
 export const deleteEvento = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
