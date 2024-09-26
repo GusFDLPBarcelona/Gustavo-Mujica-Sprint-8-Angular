@@ -74,8 +74,8 @@ npm install
 nodemon dist/index.js
 ```
 
-Puerto de escucha frontend: http://localhost:4200
-Puerto de escucha backend: http://localhost:4000/api
+- Puerto de escucha frontend: http://localhost:4200
+- Puerto de escucha backend: http://localhost:4000/api
 
 
 ## Ejecución ▶️
@@ -97,19 +97,19 @@ Para usar MapBox tienes que conseguir un 'token,' (puedes generarlo en la web de
 
 Tecnologías y dependencias que puedes instalar desde el terminal de tu editor:
 
-Angular 18
-HTML 5
-Css
-Typescript
-NodeJs
-Express
-Mapbox
-ChartsJs
-Full Calendar
-Bootstrap
-JQuery
+-Angular 18
+-HTML 5
+-Css
+-Typescript
+-NodeJs
+-Express
+-Mapbox
+-ChartsJs
+-Full Calendar
+-Bootstrap
+-JQuery
 
-Puedes pegar esta linea en el bash: 
+-Puedes pegar esta linea en el bash: 
 npm i @angular/latest mapbox-gl chart.js fullcalendar bootstrap jquery mysql2 express
 ```
 Necesitas instalar TypeScript como una dependencia de desarrollo en tu proyecto.
@@ -121,10 +121,10 @@ Esto generará el archivo tsconfig.json con las configuraciones necesarias para 
 
 Instalaciones adicionales:
 
-MySql2
-MySql Workbench
-Xammp
-Postman
+-MySql2
+-MySql Workbench
+-Xammp
+-Postman
 
 ✨--------------------------------------------------------------------------------------------------------
 
