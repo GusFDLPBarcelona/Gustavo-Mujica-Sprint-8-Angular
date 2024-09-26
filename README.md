@@ -6,7 +6,7 @@ Proyecto generado con @angular/cli.
 
 # Pruebas con CRUD, MapBox, FullCalendar y Chart.js.
 
-Este repositorio contiene los recursos de diferentes aplicaciones web para realizar pruebas de operacions CRUD ( Create, Read, Update, Delete) con tecnologías como MapBox, FullCalendar y Chart.js.
+Este repositorio contiene los recursos de diferentes aplicaciones web para realizar pruebas de operaciones CRUD ( Create, Read, Update, Delete) con tecnologías como MapBox, FullCalendar y Chart.js.
 
 ## Tecnologías Utilizadas 💻
 
@@ -65,21 +65,22 @@ npm install
 
 6. Tienes que crear una base de datos en mysql Workbench con el nombre de "tienda".
 
-7. Tienes que importar el archivo tienda.sql que esta en la carpeta gustavo-mujica-sprint-8-angular.
+7. Tienes que importar el archivo tienda.sql que está en la carpeta gustavo-mujica-sprint-8-angular.
 
-8. Levanta el servidor en la carpeta improcode-backend:
+
+8. Levanta el servidor en el terminal de tu editor con cd en improcode-backend:
 
 ```bash 
 nodemon dist/index.js
 ```
 
 Puerto de escucha frontend: http://localhost:4200
-Puerto de escucha backend: http://localhost:4000
+Puerto de escucha backend: http://localhost:4000/api
 
 
 ## Ejecución ▶️
 
-Ejecuta la aplicación con el siguiente comando en terminal de front( en terminal con cd improcode-frontend):
+Ejecuta la aplicación con el siguiente comando en el terminal de tu editor con cd en improcode-frontend):
 
 ```bash
 ng serve -o
