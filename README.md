@@ -1,25 +1,12 @@
 # Gustavo-Mujica-Sprint-8-Angular
 
-# ImprocodeFrontend
+# Improcode -  T Academy.
 
 Proyecto generado con angular/cli.
 
 # Pruebas con CRUD, MapBox, FullCalendar y Chart.js.
 
-
-## Descripción 📄
-
-Este repositorio contiene los recursos de diferentes aplicaciones web para realizar pruebas con tecnologías como CRUD, MapBox, FullCalendar y Chart.js.
-
-
-
-## Características ✨
-
-- **Crear productos**: Crear productos con nombre, precio y descripción. Después de crear un producto, se puede editar o eliminar.
-- **Guardar informacion en base de datos**: Guardar la informacion en la base de datos.
-- **Buscar sitios en Mapbox**: Buscar sitios en Mapbox y mostrarlos en el mapa. Después de buscar un sitio, se puede guardar en la base de datos. y enseñar en por categorias.
-- **Usar FullCalendar**: Se puede crear eventos en FullCalendar y guardarlos en la base de datos.
-
+Este repositorio contiene los recursos de diferentes aplicaciones web para realizar pruebas de operacions CRUD ( Create, Read, Update, Delete) con tecnologías como MapBox, FullCalendar y Chart.js.
 
 ## Tecnologías Utilizadas 💻
 
@@ -135,7 +122,8 @@ MySql2
 MySql Workbench
 Xammp
 Postman
----------------------------------------------------------------------------------------------------------
+
+✨--------------------------------------------------------------------------------------------------------
 
 
 
