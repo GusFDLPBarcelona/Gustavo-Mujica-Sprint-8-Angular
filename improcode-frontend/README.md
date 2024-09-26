@@ -1,27 +1,127 @@
 # ImprocodeFrontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.7.
+Proyecto generado con angular/cli.
 
-## Development server
+# Pruebas con CRUD, MapBox, FullCalendar y Chart.js.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Descripción 📄
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Este repositorio contiene los recursos de diferentes aplicaciones web para realizar pruebas con tecnologías como CRUD, MapBox, FullCalendar y Chart.js.
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Características ✨
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Crear productos**: Crear productos con nombre, precio y descripción. Después de crear un producto, se puede editar o eliminar.
+- **Guardar informacion en base de datos**: Guardar la informacion en la base de datos.
+- **Buscar sitios en Mapbox**: Buscar sitios en Mapbox y mostrarlos en el mapa. Después de buscar un sitio, se puede guardar en la base de datos. y enseñar en por categorias.
+- **Usar FullCalendar**: Se puede crear eventos en FullCalendar y guardarlos en la base de datos.
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Tecnologías Utilizadas 💻
 
-## Further help
+- TypeScript
+- HTML5
+- SCSS 
+- [Angular CLI](https://github.com/angular/angular-cli) version 17.0.5.
+- [MapBox](https://www.mapbox.com/)
+- [FullCalendar](https://fullcalendar.io/)
+- [Chart.js](https://www.chartjs.org/)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Requisitos 📋
+
+- Node.js y npm instalados en tu sistema. Puedes descargarlos desde [nodejs.org](https://nodejs.org/).
+- Angular CLI instalado globalmente. Puedes instalarlo con el siguiente comando:
+
+```bash
+npm install -g @angular/cli
+```
+
+## Instalación 🛠️
+
+1. Clona el repositorio:
+```bash
+git clone https://github.com/iviruu/sprin_8.git
+```
+
+2. Ingresa al directorio del proyecto:
+```bash
+cd front
+```
+
+3. Instala las dependencias:
+```bash
+npm install
+```
+
+4. Levanta el servidor(Abrimos nuevo terminal):
+
+```bash
+Ctrol + Mayus + `
+```
+
+5. Ingresa al directorio del servidor:
+
+```bash
+cd server
+```
+
+6. Instala las dependencias:
+
+```bash
+npm install
+```
+
+7. Tienes que entrar en xampp y arrancar el servidor mysql.
+
+8. Tienes que crear una base de datos en mysql Workbench con el nombre de "tienda".
+
+9. Tienes que importar el archivo tienda.sql que esta en la carpeta "db".
+
+10. Levanta el servidor:
+
+```bash 
+nodemon dist/index.js
+```
+
+
+## Ejecución ▶️
+Ejecuta la aplicación con el siguiente comando en terminal de front( en terminal con cd improcode-frontend):
+
+```bash
+ng serve -o
+```
+
+Y para usar MapBox tienes que usar un token, lo tienes que poner en linia de codigo que estan en carpeta environment.
+
+apiKey: ''( entre comillas pones tu token), que puedes generar en la web de MApBox.
+
+
+## Uso 🚀
+
+- CRUD: Crear, editar y eliminar productos.
+- MapBox: Buscar sitios y guardarlos en la base de datos.
+- FullCalendar: Crear eventos y guardarlos en la base de datos.
+- Chart.js: Mostrar gráficos de barras con datos guardados en la base de datos.
+
+Tecnologías: 
+
+Angular 18
+Typescript
+Mapbox
+ChartsJs
+Bootstrap
+JQuery
+MySql2
+MySql Workbench
+Xammp
+Postman
+
+
+
+
+
+
+
+

@@ -10,6 +10,7 @@ const connection_1 = __importDefault(require("./db/connection"));
 const producto_1 = __importDefault(require("./routes/producto"));
 const marcadores_1 = __importDefault(require("./routes/marcadores"));
 const calendario_1 = __importDefault(require("./routes/calendario"));
+const graficos_1 = __importDefault(require("./routes/graficos"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
@@ -17,6 +18,7 @@ app.use(express_1.default.json());
 app.use('/api/productos', producto_1.default);
 app.use('/api/marcadores', marcadores_1.default);
 app.use('/api/calendario', calendario_1.default);
+app.use('/api/graficos', graficos_1.default);
 connection_1.default.getConnection()
     .then(conn => {
     console.log('Conectado a la base de datos');

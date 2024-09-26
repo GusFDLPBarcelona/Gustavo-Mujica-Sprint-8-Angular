@@ -1,3 +1,36 @@
-<div class="chart-container" style="position: relative; height:40vh; width:80vw">
-    <canvas id="myChart"></canvas>
+<div class="container">
+    <h2>Gráficos de Ventas</h2>
+
+    <h3>Gráfico de Barras</h3>
+    <canvas id="canvasBar"></canvas>
+
+    <h3>Gráfico de Pastel</h3>
+    <canvas id="canvasPie"></canvas>
+
+    <table class="table table-bordered mt-4">
+        <thead>
+            <tr>
+                <th>Año</th>
+                <th>Mes</th>
+                <th>Producto</th>
+                <th>Ventas</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (datos.length > 0) {
+            @for (dato of datos; track dato.id) {
+            <tr>
+                <td>{{ dato.anio }}</td>
+                <td>{{ dato.mes }}</td>
+                <td>{{ dato.producto }}</td>
+                <td>{{ dato.ventas }}</td>
+            </tr>
+            }
+            } @else {
+            <tr>
+                <td colspan="4">No hay datos disponibles.</td>
+            </tr>
+            }
+        </tbody>
+    </table>
 </div>

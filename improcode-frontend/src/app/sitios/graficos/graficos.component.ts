@@ -1,61 +1,106 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Chart, registerables } from 'chart.js';
-import { ChartsjsService } from '../../servicios/chartsjs.service';
 
 @Component({
   selector: 'app-graficos',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './graficos.component.html',
   styleUrls: ['./graficos.component.css']
 })
 export class GraficosComponent implements OnInit {
-  private chartsjsService = inject(ChartsjsService);
+  datos: any[] = [];
+  chartBar: any;
+  chartPie: any;
 
-  constructor() {
-    // Registrar los componentes de Chart.js
+  constructor(private http: HttpClient) { }
+
+  ngOnInit(): void {
+    this.obtenerDatos();
     Chart.register(...registerables);
   }
 
-  ngOnInit(): void {
-    this.createChart();
+  obtenerDatos() {
+
+    this.http.get<any[]>('http://localhost:4000/api/graficos')
+      .subscribe(
+        (response) => {
+          this.datos = response;
+          setTimeout(() => {
+            this.generarGraficos();
+          }, 0);
+        },
+        (error) => {
+          console.error('Error al obtener los datos:', error);
+        }
+      );
   }
 
-  createChart(): void {
-    const chartData = this.chartsjsService.getChartData();
+  generarGraficos() {
 
-    const data = {
-      labels: chartData.map(item => item.label),
-      datasets: [{
-        label: 'Sitios Visitados',
-        data: chartData.map(item => item.value),
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-        ],
-        borderWidth: 1
-      }]
-    };
+    const labels = this.datos.map(d => d.producto);
+    const ventas = this.datos.map(d => d.ventas);
+    const colores = this.generarColores(labels.length);
 
-    const myChart = new Chart('myChart', {
-      type: 'bar',
-      data: data,
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
+    if (this.chartBar) {
+      this.chartBar.destroy();
+    }
+    if (this.chartPie) {
+      this.chartPie.destroy();
+    }
+
+    const ctxBar = document.getElementById('canvasBar') as HTMLCanvasElement;
+    if (ctxBar) {
+      this.chartBar = new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Ventas',
+              data: ventas,
+              backgroundColor: colores,
+              borderColor: colores,
+              borderWidth: 1,
+            }
+          ]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
           }
         }
-      }
-    });
+      });
+    }
+
+    const ctxPie = document.getElementById('canvasPie') as HTMLCanvasElement;
+    if (ctxPie) {
+      this.chartPie = new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Ventas',
+              data: ventas,
+              backgroundColor: colores,
+              borderColor: '#fff',
+              borderWidth: 1,
+            }
+          ]
+        }
+      });
+    }
+  }
+
+  generarColores(numeroDeColores: number): string[] {
+
+    const colores = [];
+    for (let i = 0; i < numeroDeColores; i++) {
+      const color = `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.7)`;
+      colores.push(color);
+    }
+    return colores;
   }
 }

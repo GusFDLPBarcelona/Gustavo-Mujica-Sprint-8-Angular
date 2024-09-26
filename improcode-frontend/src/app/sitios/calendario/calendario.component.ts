@@ -245,6 +245,19 @@ export class CalendarioComponent implements OnInit {
     });
   }
 
+  eliminarEvento(id: string) {
+
+    this.eventosService.deleteEvento(id).subscribe({
+      next: () => {
+        this.eventos = this.eventos.filter(evento => evento.id !== id);
+        this.calendarOptions.events = this.mapEventosToCalendarEvents(this.eventos);
+      },
+
+      error: (error) => {
+        console.error('Error al eliminar el evento', error);
+      }
+    });
+  }
 
   verTodosLosEventos() {
     console.log('Eventos actuales:', this.eventos);

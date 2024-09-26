@@ -1,1 +1,133 @@
 # Gustavo-Mujica-Sprint-8-Angular
+
+# ImprocodeFrontend
+
+Proyecto generado con angular/cli.
+
+# Pruebas con CRUD, MapBox, FullCalendar y Chart.js.
+
+
+## Descripción 📄
+
+Este repositorio contiene los recursos de diferentes aplicaciones web para realizar pruebas con tecnologías como CRUD, MapBox, FullCalendar y Chart.js.
+
+
+
+## Características ✨
+
+- **Crear productos**: Crear productos con nombre, precio y descripción. Después de crear un producto, se puede editar o eliminar.
+- **Guardar informacion en base de datos**: Guardar la informacion en la base de datos.
+- **Buscar sitios en Mapbox**: Buscar sitios en Mapbox y mostrarlos en el mapa. Después de buscar un sitio, se puede guardar en la base de datos. y enseñar en por categorias.
+- **Usar FullCalendar**: Se puede crear eventos en FullCalendar y guardarlos en la base de datos.
+
+
+## Tecnologías Utilizadas 💻
+
+- TypeScript
+- HTML5
+- SCSS 
+- [Angular CLI](https://github.com/angular/angular-cli) version 17.0.5.
+- [MapBox](https://www.mapbox.com/)
+- [FullCalendar](https://fullcalendar.io/)
+- [Chart.js](https://www.chartjs.org/)
+
+## Requisitos 📋
+
+- Node.js y npm instalados en tu sistema. Puedes descargarlos desde [nodejs.org](https://nodejs.org/).
+- Angular CLI instalado globalmente. Puedes instalarlo con el siguiente comando:
+
+```bash
+npm install -g @angular/cli
+```
+
+## Instalación 🛠️
+
+1. Clona el repositorio:
+```bash
+git clone https://github.com/iviruu/sprin_8.git
+```
+
+2. Ingresa al directorio del proyecto:
+
+```bash
+cd gustavo-mujica-sprint-8-angular
+
+cd improcode-frontend
+cd improcode-backend
+```
+
+3. Instala las dependencias:
+```bash
+npm install
+```
+
+4. Levanta el servidor(Abrimos nuevo terminal):
+
+```bash
+Ctrol + Mayus + `
+```
+
+5. Ingresa al directorio del servidor:
+
+```bash
+cd server
+```
+
+6. Instala las dependencias:
+
+```bash
+npm install
+```
+
+7. Tienes que entrar en xampp y arrancar el servidor mysql.
+
+8. Tienes que crear una base de datos en mysql Workbench con el nombre de "tienda".
+
+9. Tienes que importar el archivo tienda.sql que esta en la gustavo-mujica-carpeta sprint-8-angular.
+
+10. Levanta el servidor en la carpeta improcode-backend:
+
+```bash 
+nodemon dist/index.js
+```
+
+
+## Ejecución ▶️
+Ejecuta la aplicación con el siguiente comando en terminal de front( en terminal con cd improcode-frontend):
+
+```bash
+ng serve -o
+```
+
+Y para usar MapBox tienes que usar un token, lo tienes que poner en linia de codigo que estan en carpeta environment.
+
+apiKey: ''( entre comillas pones tu token), que puedes generar en la web de MApBox.
+
+
+## Uso 🚀
+
+- CRUD: Crear, editar y eliminar productos.
+- MapBox: Buscar sitios y guardarlos en la base de datos.
+- FullCalendar: Crear eventos y guardarlos en la base de datos.
+- Chart.js: Mostrar gráficos de barras con datos guardados en la base de datos.
+
+Tecnologías: 
+
+Angular 18
+Typescript
+Mapbox
+ChartsJs
+Bootstrap
+JQuery
+MySql2
+MySql Workbench
+Xammp
+Postman
+
+
+
+
+
+
+
+
