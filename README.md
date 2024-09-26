@@ -1,8 +1,8 @@
 # Gustavo-Mujica-Sprint-8-Angular
 
-# Improcode -  T Academy.
+# Improcode -  IT Academy.
 
-Proyecto generado con angular/cli.
+Proyecto generado con @angular/cli.
 
 # Pruebas con CRUD, MapBox, FullCalendar y Chart.js.
 
@@ -12,8 +12,10 @@ Este repositorio contiene los recursos de diferentes aplicaciones web para reali
 
 - TypeScript
 - HTML5
-- SCSS 
-- [Angular CLI](https://github.com/angular/angular-cli) version 17.0.5.
+- CSS 
+- Bootstrap
+
+- [Angular CLI](https://github.com/angular/angular-cli version 18.0.2)
 - [MapBox](https://www.mapbox.com/)
 - [FullCalendar](https://fullcalendar.io/)
 - [Chart.js](https://www.chartjs.org/)
