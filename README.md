@@ -43,8 +43,9 @@ npm install -g @angular/cli
 ## Instalación 🛠️
 
 1. Clona el repositorio:
+
 ```bash
-git clone https://github.com/iviruu/sprin_8.git
+git clone https://github.com/GusFDLPBarcelona/Gustavo-Mujica-Sprint-8-Angular.git
 ```
 
 2. Ingresa al directorio del proyecto:
@@ -53,76 +54,88 @@ git clone https://github.com/iviruu/sprin_8.git
 cd gustavo-mujica-sprint-8-angular
 
 cd improcode-frontend
-cd improcode-backend
-```
 
 3. Instala las dependencias:
-```bash
-npm install
-```
 
+```bash
+npm install `
+```
 4. Levanta el servidor(Abrimos nuevo terminal):
 
 ```bash
-Ctrol + Mayus + `
+npm start
+
+cd improcode-backend
 ```
-
-5. Ingresa al directorio del servidor:
-
-```bash
-cd server
-```
-
-6. Instala las dependencias:
+Instala las dependencias:
 
 ```bash
 npm install
 ```
+5. Tienes que entrar en xampp y arrancar el servidor mysql.
 
-7. Tienes que entrar en xampp y arrancar el servidor mysql.
+6. Tienes que crear una base de datos en mysql Workbench con el nombre de "tienda".
 
-8. Tienes que crear una base de datos en mysql Workbench con el nombre de "tienda".
+7. Tienes que importar el archivo tienda.sql que esta en la carpeta gustavo-mujica-sprint-8-angular.
 
-9. Tienes que importar el archivo tienda.sql que esta en la gustavo-mujica-carpeta sprint-8-angular.
-
-10. Levanta el servidor en la carpeta improcode-backend:
+8. Levanta el servidor en la carpeta improcode-backend:
 
 ```bash 
 nodemon dist/index.js
 ```
 
+Puerto de escucha frontend: http://localhost:4200
+Puerto de escucha backend: http://localhost:4000
+
 
 ## Ejecución ▶️
+
 Ejecuta la aplicación con el siguiente comando en terminal de front( en terminal con cd improcode-frontend):
 
 ```bash
 ng serve -o
 ```
 
-Y para usar MapBox tienes que usar un token, lo tienes que poner en linia de codigo que estan en carpeta environment.
-
-apiKey: ''( entre comillas pones tu token), que puedes generar en la web de MApBox.
-
+Para usar MapBox tienes que conseguir un 'token,' (puedes generarlo en la web de MApBox.) y luego tienes que ponerlo en en la carpeta environments en el archivo environments.ts (src/environments/environments.ts en la línea mapboxToken: '',).
 
 ## Uso 🚀
 
-- CRUD: Crear, editar y eliminar productos.
-- MapBox: Buscar sitios y guardarlos en la base de datos.
-- FullCalendar: Crear eventos y guardarlos en la base de datos.
+- CRUD: Crear, ver, editar y eliminar productos.
+- MapBox: Buscar sitios, revisitarlos, conocer su latitud y longitud en el mapa, y guardarlos en la base de datos.
+- FullCalendar: Crear eventos, editarlos, guardarlos en la base de datos y eliminarlos.
 - Chart.js: Mostrar gráficos de barras con datos guardados en la base de datos.
 
-Tecnologías: 
+Tecnologías y dependencias que puedes instalar desde el terminal de tu editor:
 
 Angular 18
+HTML 5
+Css
 Typescript
+NodeJs
+Express
 Mapbox
 ChartsJs
+Full Calendar
 Bootstrap
 JQuery
+
+Puedes pegar esta linea en el bash: 
+npm i @angular/latest mapbox-gl chart.js fullcalendar bootstrap jquery mysql2 express
+```
+Necesitas instalar TypeScript como una dependencia de desarrollo en tu proyecto.
+
+Para iniciarlo usa npx tsc --init
+
+Esto generará el archivo tsconfig.json con las configuraciones necesarias para compilar tus archivos TypeScript a JavaScrip, todo ello necesario para que la aplicación se inicie.
+
+
+Instalaciones adicionales:
+
 MySql2
 MySql Workbench
 Xammp
 Postman
+---------------------------------------------------------------------------------------------------------
 
 
 
