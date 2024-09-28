@@ -63,10 +63,9 @@ npm install
 ```
 5. Tienes que entrar en xampp y arrancar el servidor mysql.
 
-6. Tienes que crear una base de datos en mysql Workbench con el nombre de "tienda".
+6. Tienes que crear una base de datos en mysql Workbench con el nombre "tienda".
 
 7. Tienes que importar el archivo tienda.sql que está en la carpeta gustavo-mujica-sprint-8-angular.
-
 
 8. Levanta el servidor en el terminal de tu editor con cd en improcode-backend:
 
@@ -80,7 +79,7 @@ nodemon dist/index.js
 
 ## Ejecución ▶️
 
-Ejecuta la aplicación con el siguiente comando en el terminal de tu editor con cd en improcode-frontend):
+Ejecuta la aplicación con el siguiente comando en el terminal de tu editor con cd en improcode-frontend:
 
 ```bash
 ng serve -o
@@ -95,7 +94,7 @@ Para usar MapBox tienes que conseguir un 'token,' (puedes generarlo en la web de
 - FullCalendar: Crear eventos, editarlos, guardarlos en la base de datos y eliminarlos.
 - Chart.js: Mostrar gráficos de barras con datos guardados en la base de datos.
 
-Tecnologías y dependencias que puedes instalar desde el terminal de tu editor:
+Tecnologías y dependencias necesarias. Las que debes instalar, puedes hacerlo desde la terminal de tu editor de código:
 
 -Angular 18
 -HTML 5
@@ -114,12 +113,19 @@ npm i @angular/latest mapbox-gl chart.js fullcalendar bootstrap jquery mysql2 ex
 ```
 Necesitas instalar TypeScript como una dependencia de desarrollo en tu proyecto.
 
+Para instalarlo: npm i typescript --save-dev
+
 Para iniciarlo usa npx tsc --init
 
 Esto generará el archivo tsconfig.json con las configuraciones necesarias para compilar tus archivos TypeScript a JavaScrip, todo ello necesario para que la aplicación se inicie.
 
+para compilar automáticamente: tsc --watch
+Para compilar manualmente si no deseas instalar TypeScript globalmente: npx tsc 
 
-Instalaciones adicionales:
+Si no tienes TypesCript instalado globalmente, con el comando 'npx tsc tu_archivo.ts' te aseguras de compilar usando la versión del compilador definida en las dependencias de tu proyecto sin tener que preocuparte por instalaciones globales.
+
+´´´´
+Instalaciones adicionales para probar, habilitar y gestionar tus conexiones backend:
 
 -MySql2
 -MySql Workbench
