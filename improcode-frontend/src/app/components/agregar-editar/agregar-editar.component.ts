@@ -35,15 +35,16 @@ export class AgregarEditarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.route.data.subscribe((data: any) => {
       console.log(data.producto);
       this.form.patchValue(data.producto);
-      if (this.form.value !== undefined) {
+      if (data.producto && data.producto.id) {
         console.log('entras? kullons!!');
         this.titulo = 'Editar';
+      } else {
+        this.titulo = 'Agregar';
       }
-    })
+    });
   }
 
   agregarProducto() {
