@@ -63,7 +63,7 @@ npm install
 ```
 5. Tienes que entrar en xampp y arrancar el servidor mysql.
 
-6. Tienes que crear una base de datos en mysql Workbench con el nombre "tienda".
+6. Abre Mysql Workbench
 
 7. Tienes que importar el archivo tienda.sql que está en la carpeta gustavo-mujica-sprint-8-angular.
 
@@ -108,10 +108,8 @@ Tecnologías y dependencias necesarias. Las que debes instalar, puedes hacerlo d
 -Bootstrap
 -JQuery
 
--Puedes pegar esta linea en el bash: 
-npm i @angular/latest mapbox-gl chart.js fullcalendar bootstrap jquery mysql2 express
-```
-Necesitas instalar TypeScript como una dependencia de desarrollo en tu proyecto.
+
+Necesitas tener instalado TypeScript como una dependencia de desarrollo en tu proyecto.
 
 Para instalarlo: npm i typescript --save-dev
 
