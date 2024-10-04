@@ -149,8 +149,12 @@ export class CalendarioComponent implements OnInit {
           next: () => {
             alert('Evento editado con éxito');
             this.cargarEventos();
+            this.scrollToTop();
           },
-          error: (error) => console.error('Error al editar el evento', error),
+          error: (error) => {
+            console.error('Error al editar el evento', error);
+            alert('Error al editar el evento');
+          }
         });
       } else {
 
@@ -158,11 +162,14 @@ export class CalendarioComponent implements OnInit {
           next: () => {
             alert('Evento creado con éxito');
             this.cargarEventos();
+            this.scrollToTop();
           },
-          error: (error: any) => console.error('Error al crear el evento', error),
+          error: (error: any) => {
+            console.error('Error al crear el evento', error);
+            alert('Error al crear el evento');
+          }
         });
       }
-
 
       this.mostrarFormulario = false;
       this.appointmentForm.reset();
@@ -243,6 +250,8 @@ export class CalendarioComponent implements OnInit {
       startDateTime: normalizeDate(evento.startDateTime),
       endDateTime: normalizeDate(evento.endDateTime),
     });
+
+    this.scrollToTop();
   }
 
   eliminarEvento(id: string) {
@@ -251,15 +260,22 @@ export class CalendarioComponent implements OnInit {
       next: () => {
         this.eventos = this.eventos.filter(evento => evento.id !== id);
         this.calendarOptions.events = this.mapEventosToCalendarEvents(this.eventos);
+        alert('Evento eliminado con éxito');
+        this.scrollToTop();
       },
 
       error: (error) => {
         console.error('Error al eliminar el evento', error);
+        alert('Error al eliminar el evento');
       }
     });
   }
 
   verTodosLosEventos() {
-    console.log('Eventos actuales:', this.eventos);
+  }
+
+  private scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
+
