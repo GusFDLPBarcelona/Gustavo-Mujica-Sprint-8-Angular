@@ -28,7 +28,7 @@ export class AgregarEditarComponent implements OnInit {
       id: [0],
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
-      talla: ['', Validators.required],
+      talla: [''],
       precio: ['', Validators.required],
       stock: ['', Validators.required]
     })
