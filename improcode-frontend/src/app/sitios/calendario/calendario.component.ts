@@ -101,7 +101,7 @@ export class CalendarioComponent implements OnInit {
 
   handleEventClick(clickInfo: any) {
     console.log('Info del click en editar evento:', clickInfo);
-    const evento = this.eventos.find(e => e.id === clickInfo.event.id);
+    const evento = this.eventos.find(e => String(e.id) === clickInfo.event.id);
     console.log('Evento encontrado para editar:', evento);
     if (!evento) {
       console.error('No se encontró el evento con id:', clickInfo.event.id);
@@ -228,7 +228,7 @@ export class CalendarioComponent implements OnInit {
       description: evento.description
 
     });
-    if (!evento || !evento.startDateTime || !evento.endDateTime || !evento.location || !evento.summary || !evento.description) {
+    if (!evento || !evento.startDateTime || !evento.endDateTime || !evento.location || !evento.summary || evento.description === null || evento.description === undefined) {
       console.error('El evento no tiene una propiedad startDateTime válida');
       console.log(evento);
       console.log('startDateTime:', evento.startDateTime);
