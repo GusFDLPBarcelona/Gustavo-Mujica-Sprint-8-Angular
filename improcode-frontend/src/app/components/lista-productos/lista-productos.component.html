@@ -6,10 +6,10 @@
 <div class="container">
     <div class="title">
         <h4>Lista de productos</h4>
-        <button type="button" class="btn btn-primary" routerLink='/agregar'>Agregar Producto</button>
+        <button type="button" class="btn btn-dark px-4 fw-semibold" routerLink='/agregar'>+ Agregar Producto</button>
     </div>
 
-    <table class="table table-hover">
+    <table class="table table-hover table-striped">
         <thead>
             <tr>
                 <th scope="col">Nombre</th>
@@ -22,16 +22,16 @@
         </thead>
         <tbody>
             @for (item of productos; track item) {
-            <tr class="table-active">
+            <tr>
                 <th>{{ item.nombre }}</th>
                 <td>{{ item.descripcion }}</td>
                 <td>{{ item.talla }}</td>
                 <td>{{ item.precio | currency }}</td>
                 <td>{{ item.stock }}</td>
-                <td>
-                    <button routerLink='/editar/{{item.id}}' type="button" class="btn btn-info btn-sm">Editar</button>
+                <td class="nowrap">
+                    <button routerLink='/editar/{{item.id}}' type="button" class="btn btn-outline-secondary btn-sm">Editar</button>
                     <button (click)="eliminarProducto(item.id!)" type="button"
-                        class="btn btn-danger btn-sm ms-2">Eliminar</button>
+                        class="btn btn-dark btn-sm ms-2">Eliminar</button>
                 </td>
             </tr>
             }
