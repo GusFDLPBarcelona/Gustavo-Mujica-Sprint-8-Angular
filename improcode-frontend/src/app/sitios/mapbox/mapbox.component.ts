@@ -5,6 +5,7 @@ import { Marker } from '../../interfaces/marker';
 
 @Component({
     selector: 'app-mapbox',
+    standalone: true,
     templateUrl: 'mapbox.component.html',
     styleUrls: ['./mapbox.component.css']
 })
@@ -67,7 +68,7 @@ export class MapboxComponent implements OnInit {
 
                     if (!exists) {
                         this.saveMarker(newMarker);
-                        this.markers.push(newMarker);
+                        this.markers.unshift(newMarker);
                     }
 
                     this.addMarker(lat, lng, placeName);
@@ -117,8 +118,8 @@ export class MapboxComponent implements OnInit {
     saveMarker(marker: Marker) {
 
         this.mapboxService.createMarker(marker).subscribe({
-            next: (response) => {
-                console.log('Marcador guardado:', response);
+            next: (response: any) => {
+                marker.id = response.result?.insertId;
             },
             error: (err) => {
                 if (err.status === 400 && err.error.error === 'El marcador ya existe en la base de datos con esas coordenadas.') {
@@ -127,6 +128,25 @@ export class MapboxComponent implements OnInit {
                     console.error('Error al guardar el marcador:', err);
                 }
             }
+        });
+    }
+
+    eliminarMarcador(marker: Marker) {
+        if (!marker.id) return;
+        this.mapboxService.deleteMarker(marker.id).subscribe({
+            next: () => {
+                this.markers = this.markers.filter(m => m.id !== marker.id);
+                const index = this.existingMarkers.findIndex(m => {
+                    const lngLat = m.getLngLat();
+                    return Math.abs(lngLat.lat - marker.latitude) < 0.0001 &&
+                           Math.abs(lngLat.lng - marker.longitude) < 0.0001;
+                });
+                if (index !== -1) {
+                    this.existingMarkers[index].remove();
+                    this.existingMarkers.splice(index, 1);
+                }
+            },
+            error: (err) => console.error('Error al eliminar marcador:', err)
         });
     }
 
