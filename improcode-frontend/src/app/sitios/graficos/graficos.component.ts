@@ -4,6 +4,7 @@ import { Chart, registerables } from 'chart.js';
 
 @Component({
   selector: 'app-graficos',
+  standalone: true,
   templateUrl: './graficos.component.html',
   styleUrls: ['./graficos.component.css']
 })
@@ -65,6 +66,7 @@ export class GraficosComponent implements OnInit {
           ]
         },
         options: {
+          maintainAspectRatio: false,
           scales: {
             y: {
               beginAtZero: true
@@ -89,6 +91,14 @@ export class GraficosComponent implements OnInit {
               borderWidth: 1,
             }
           ]
+        },
+        options: {
+          maintainAspectRatio: false,
+          plugins: {
+            tooltip: {
+              position: 'nearest',
+            }
+          }
         }
       });
     }

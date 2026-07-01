@@ -1,36 +1,46 @@
-<div class="container">
+<div class="pagina">
     <h2>Gráficos de Ventas</h2>
-
     <h3>Gráfico de Barras</h3>
-    <canvas id="canvasBar"></canvas>
+    <div class="chart-wrapper chart-wrapper--bar">
+        <canvas id="canvasBar"></canvas>
+    </div>
+</div>
 
+<div class="pagina">
     <h3>Gráfico de Pastel</h3>
-    <canvas id="canvasPie"></canvas>
+    <div class="chart-wrapper chart-wrapper--pie">
+        <canvas id="canvasPie"></canvas>
+    </div>
+</div>
 
-    <table class="table table-bordered mt-4">
-        <thead>
-            <tr>
-                <th>Año</th>
-                <th>Mes</th>
-                <th>Producto</th>
-                <th>Ventas</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (datos.length > 0) {
-            @for (dato of datos; track dato.id) {
-            <tr>
-                <td>{{ dato.anio }}</td>
-                <td>{{ dato.mes }}</td>
-                <td>{{ dato.producto }}</td>
-                <td>{{ dato.ventas }}</td>
-            </tr>
-            }
-            } @else {
-            <tr>
-                <td colspan="4">No hay datos disponibles.</td>
-            </tr>
-            }
-        </tbody>
-    </table>
+<div class="pagina">
+    <h3>Tabla de Ventas</h3>
+    <div class="tabla-wrapper">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Año</th>
+                    <th>Mes</th>
+                    <th>Producto</th>
+                    <th>Ventas</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (datos.length > 0) {
+                @for (dato of datos; track dato.id) {
+                <tr>
+                    <td>{{ dato.anio }}</td>
+                    <td>{{ dato.mes }}</td>
+                    <td>{{ dato.producto }}</td>
+                    <td>{{ dato.ventas }}</td>
+                </tr>
+                }
+                } @else {
+                <tr>
+                    <td colspan="4">No hay datos disponibles.</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
