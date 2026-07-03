@@ -128,8 +128,3 @@ Gustavo-Mujica-Sprint-8-Angular/
 | DELETE | `/api/marcadores/:id` | Eliminar marcador |
 | GET | `/api/graficos` | Obtener datos de ventas |
 
----
-
-## Demo
-
-> Próximamente en línea — el backend se migrará a Railway y el frontend a GitHub Pages.
