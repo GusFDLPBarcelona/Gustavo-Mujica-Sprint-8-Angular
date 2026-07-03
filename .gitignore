@@ -1,3 +1,4 @@
 *.sql
+!tienda.sql
 coverage/
 *.test.js

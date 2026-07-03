@@ -1,141 +1,135 @@
-# Gustavo-Mujica-Sprint-8-Angular
+# ImproCode — Panel de Gestión Empresarial
 
-# Improcode -  IT Academy.
+Aplicación full-stack construida con **Angular 18** y **Node.js/Express** para gestionar productos, eventos de agenda, gráficos de ventas y ubicaciones de tiendas en mapa interactivo.
 
-Proyecto generado con @angular/cli.
+---
 
-# Pruebas con CRUD, MapBox, FullCalendar y Chart.js.
+## Tecnologías
 
-Este repositorio contiene los recursos de diferentes aplicaciones web para realizar pruebas de operaciones CRUD ( Create, Read, Update, Delete) con tecnologías como MapBox, FullCalendar y Chart.js.
+| Capa | Tecnología |
+|------|------------|
+| Frontend | Angular 18 (standalone), Bootstrap 5, TypeScript |
+| Backend | Node.js, Express, TypeScript |
+| Base de datos | MySQL vía XAMPP |
+| Calendario | FullCalendar |
+| Gráficos | Chart.js |
+| Mapas | MapboxGL |
+| Tipografía | Inter (Google Fonts) |
 
-## Tecnologías Utilizadas 💻
+---
 
-- TypeScript
-- HTML5
-- CSS 
-- Bootstrap
+## Funcionalidades
 
-- [Angular CLI](https://github.com/angular/angular-cli version 18.0.2)
-- [MapBox](https://www.mapbox.com/)
-- [FullCalendar](https://fullcalendar.io/)
-- [Chart.js](https://www.chartjs.org/)
+### Lista de productos (CRUD)
+Gestión completa de un catálogo de productos: crear, visualizar, editar y eliminar. El formulario valida campos obligatorios, detecta cambios antes de permitir guardar y diferencia entre modo alta y modo edición.
 
-## Requisitos 📋
+### Calendario de eventos
+Calendario mensual interactivo con FullCalendar. Permite crear eventos con título, fecha y hora de inicio y fin, ubicación y descripción. Los eventos se pueden editar y eliminar tanto desde el calendario como desde la lista inferior.
 
-- Node.js y npm instalados en tu sistema. Puedes descargarlos desde [nodejs.org](https://nodejs.org/).
-- Angular CLI instalado globalmente. Puedes instalarlo con el siguiente comando:
+### Gráficos de ventas
+Visualización de datos de ventas en tres formatos: gráfico de barras, gráfico de pastel y tabla de datos. Cada visualización ocupa su propia sección en pantalla. Los colores se generan dinámicamente y el tooltip del pastel se posiciona junto al cursor.
+
+### Mapa de ubicaciones (MapboxGL)
+Mapa interactivo centrado en Barcelona con ubicaciones predefinidas de tiendas. Al hacer clic en el mapa se añade un nuevo marcador con geocodificación inversa (nombre de lugar automático), se guarda en base de datos y aparece en la lista lateral. Los marcadores guardados se pueden eliminar con el botón ✕.
+
+---
+
+## Requisitos previos
+
+- **Node.js** v18 o superior
+- **Angular CLI**: `npm install -g @angular/cli`
+- **XAMPP** con MySQL activo en el puerto 3306
+
+---
+
+## Puesta en marcha
+
+### 1. Base de datos
+
+1. Iniciar XAMPP y arrancar el servicio MySQL
+2. Abrir phpMyAdmin en `http://localhost/phpmyadmin`
+3. Crear una base de datos llamada `tienda`
+4. Importar el archivo `tienda.sql` incluido en la raíz del repositorio
+
+### 2. Backend
 
 ```bash
-npm install -g @angular/cli
-```
-
-## Instalación 🛠️
-
-1. Clona el repositorio:
-
-```bash
-git clone https://github.com/GusFDLPBarcelona/Gustavo-Mujica-Sprint-8-Angular.git
-```
-
-2. Ingresa al directorio del proyecto:
-
-```bash
-cd gustavo-mujica-sprint-8-angular
-
-cd improcode-frontend
-
-3. Instala las dependencias:
-
-```bash
-npm install `
-```
-4. Levanta el servidor(Abrimos nuevo terminal):
-
-```bash
-npm start
-
 cd improcode-backend
-```
-Instala las dependencias:
-
-```bash
 npm install
-```
-5. Tienes que entrar en xampp y arrancar el servidor mysql.
-
-6. Abre Mysql Workbench
-
-7. Tienes que importar el archivo tienda.sql que está en la carpeta gustavo-mujica-sprint-8-angular.
-
-8. Levanta el servidor en el terminal de tu editor con cd en improcode-backend:
-
-```bash 
-nodemon dist/index.js
+npx nodemon src/index.ts
 ```
 
-- Puerto de escucha frontend: http://localhost:4200
-- Puerto de escucha backend: http://localhost:4000/api
+El servidor arrancará en `http://localhost:4000`.
 
-
-## Ejecución ▶️
-
-Ejecuta la aplicación con el siguiente comando en el terminal de tu editor con cd en improcode-frontend:
+### 3. Frontend
 
 ```bash
-ng serve -o
+cd improcode-frontend
+npm install
+ng serve
 ```
 
-Para usar MapBox tienes que conseguir un 'token,' (puedes generarlo en la web de MApBox.) y luego tienes que ponerlo en en la carpeta environments en el archivo environments.ts (src/environments/environments.ts en la línea mapboxToken: '',).
+La aplicación estará disponible en `http://localhost:4200`.
 
-## Uso 🚀
+---
 
-- CRUD: Crear, ver, editar y eliminar productos.
-- MapBox: Buscar sitios, revisitarlos, conocer su latitud y longitud en el mapa, y guardarlos en la base de datos.
-- FullCalendar: Crear eventos, editarlos, guardarlos en la base de datos y eliminarlos.
-- Chart.js: Mostrar gráficos de barras con datos guardados en la base de datos.
+## Variables de entorno
 
-Tecnologías y dependencias necesarias. Las que debes instalar, puedes hacerlo desde la terminal de tu editor de código:
+El backend lee un archivo `.env` en `improcode-backend/`. Crear el archivo con este contenido:
 
--Angular 18
--HTML 5
--Css
--Typescript
--NodeJs
--Express
--Mapbox
--ChartsJs
--Full Calendar
--Bootstrap
--JQuery
+```
+PORT=4000
+DB_HOST=localhost
+DB_USER=root
+DB_NAME=tienda
+```
 
+> La instalación por defecto de XAMPP usa `root` sin contraseña. Si tu configuración es diferente, añade `DB_PASSWORD=tu_contraseña`.
 
-Necesitas tener instalado TypeScript como una dependencia de desarrollo en tu proyecto.
+---
 
-Para instalarlo: npm i typescript --save-dev
+## Estructura del proyecto
 
-Para iniciarlo usa npx tsc --init
+```
+Gustavo-Mujica-Sprint-8-Angular/
+├── tienda.sql                  # Volcado completo de la base de datos
+├── improcode-backend/          # API REST
+│   └── src/
+│       ├── index.ts            # Punto de entrada
+│       ├── routes/             # Rutas: productos, calendario, marcadores, gráficos
+│       ├── controllers/        # Lógica de negocio
+│       ├── models/             # Consultas a base de datos
+│       └── db/
+│           └── connection.ts   # Conexión MySQL con mysql2
+└── improcode-frontend/         # SPA Angular 18
+    └── src/app/
+        ├── components/         # Navbar, lista de productos, formulario agregar/editar
+        ├── sitios/             # Calendario, gráficos, mapas
+        ├── servicios/          # Servicios HTTP por módulo
+        └── interfaces/         # Tipos TypeScript
+```
 
-Esto generará el archivo tsconfig.json con las configuraciones necesarias para compilar tus archivos TypeScript a JavaScrip, todo ello necesario para que la aplicación se inicie.
+---
 
-para compilar automáticamente: tsc --watch
-Para compilar manualmente si no deseas instalar TypeScript globalmente: npx tsc 
+## API REST
 
-Si no tienes TypesCript instalado globalmente, con el comando 'npx tsc tu_archivo.ts' te aseguras de compilar usando la versión del compilador definida en las dependencias de tu proyecto sin tener que preocuparte por instalaciones globales.
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| GET | `/api/productos` | Obtener todos los productos |
+| POST | `/api/productos` | Crear producto |
+| PUT | `/api/productos/:id` | Actualizar producto |
+| DELETE | `/api/productos/:id` | Eliminar producto |
+| GET | `/api/calendario` | Obtener eventos |
+| POST | `/api/calendario` | Crear evento |
+| PUT | `/api/calendario/:id` | Actualizar evento |
+| DELETE | `/api/calendario/:id` | Eliminar evento |
+| GET | `/api/marcadores` | Obtener marcadores guardados |
+| POST | `/api/marcadores` | Guardar marcador |
+| DELETE | `/api/marcadores/:id` | Eliminar marcador |
+| GET | `/api/graficos` | Obtener datos de ventas |
 
-´´´´
-Instalaciones adicionales para probar, habilitar y gestionar tus conexiones backend:
+---
 
--MySql2
--MySql Workbench
--Xammp
--Postman
+## Demo
 
-✨--------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
+> Próximamente en línea — el backend se migrará a Railway y el frontend a GitHub Pages.
