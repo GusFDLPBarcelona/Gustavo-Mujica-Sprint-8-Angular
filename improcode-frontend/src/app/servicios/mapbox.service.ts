@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Marker } from '../interfaces/marker';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MapboxService {
 
-    private apiUrl = 'http://localhost:4000/api/marcadores';
+    private apiUrl = `${environment.endpoint}api/marcadores`;
     private geocodingUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places';
 
     constructor(private http: HttpClient) { }

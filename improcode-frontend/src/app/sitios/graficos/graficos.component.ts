@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Chart, registerables } from 'chart.js';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-graficos',
@@ -22,7 +23,7 @@ export class GraficosComponent implements OnInit {
 
   obtenerDatos() {
 
-    this.http.get<any[]>('http://localhost:4000/api/graficos')
+    this.http.get<any[]>(`${environment.endpoint}api/graficos`)
       .subscribe(
         (response) => {
           this.datos = response;
