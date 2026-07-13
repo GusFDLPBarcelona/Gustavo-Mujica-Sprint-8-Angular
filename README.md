@@ -4,6 +4,14 @@ Aplicación full-stack construida con **Angular 18** y **Node.js/Express** que s
 
 Es el sprint más completo del curso en términos de arquitectura — cuatro módulos independientes, cada uno con su propia librería especializada, todos conectados a una API REST propia con base de datos MySQL.
 
+## Demo
+
+Esta aplicación no tiene demo desplegada. Tiempo después del desarrollo original, intenté migrarla a la nube: **Railway** para el backend (una plataforma que permite hostear aplicaciones Node.js directamente desde GitHub) y **Aiven** para la base de datos MySQL (un servicio gestionado en la nube con capa gratuita).
+
+En el proceso, Railway eliminó su plan gratuito, Aiven mostraba problemas de compatibilidad de cliente MySQL, y cada paso me alejaba más del ejercicio en sí. Y sobre todo — un panel de gestión empresarial con base de datos propia no es una app que deba vivir en un servidor de hobby con recursos limitados. Eso más que una demo del ejercicio habría sido un ejercicio diferente. Innecesario para la documentación de mi aprendizaje real al momento de terminarlo originalmente.
+
+Decidí preservar el ejercicio tal como es: completo, con API REST propia, base de datos real y cuatro módulos independientes funcionando. Siguiendo los pasos de instalación de abajo, corre en local en menos de cinco minutos.
+
 ## Características
 
 - **CRUD de productos**: listado, alta, edición y eliminación con formulario reactivo. El botón de guardar solo se activa cuando hay cambios reales — no antes.
@@ -98,6 +106,3 @@ Gustavo-Mujica-Sprint-8-Angular/
 | DELETE | `/api/marcadores/:id` | Eliminar marcador |
 | GET | `/api/graficos` | Datos de ventas para los gráficos |
 
-## Demo
-
-La aplicación requiere backend y base de datos propios para funcionar, así que no hay demo desplegada — es la naturaleza del ejercicio. Siguiendo los pasos de instalación de arriba, corre completa en local en menos de cinco minutos.
