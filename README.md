@@ -100,4 +100,4 @@ Gustavo-Mujica-Sprint-8-Angular/
 
 ## Demo
 
-> 🚧 En preparación — el backend se migrará a Railway y el frontend se desplegará en GitHub Pages. Mientras tanto, la aplicación funciona completa en local siguiendo los pasos de instalación.
+La aplicación requiere backend y base de datos propios para funcionar, así que no hay demo desplegada — es la naturaleza del ejercicio. Siguiendo los pasos de instalación de arriba, corre completa en local en menos de cinco minutos.
