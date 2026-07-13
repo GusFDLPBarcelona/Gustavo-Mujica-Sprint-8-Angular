@@ -43,6 +43,17 @@ Decidí preservar el ejercicio tal como es: completo, con API REST propia, base 
 
 ### 2. Backend
 
+Crear un archivo `.env` en `improcode-backend/` con este contenido:
+
+```
+PORT=4000
+DB_HOST=localhost
+DB_USER=root
+DB_NAME=tienda
+```
+
+> La instalación por defecto de XAMPP usa `root` sin contraseña. Si tu configuración es diferente, añade `DB_PASSWORD=tu_contraseña`.
+
 ```bash
 cd improcode-backend
 npm install
@@ -60,19 +71,6 @@ ng serve
 ```
 
 La aplicación estará disponible en `http://localhost:4200`.
-
-### Variables de entorno
-
-Crear un archivo `.env` en `improcode-backend/` con este contenido:
-
-```
-PORT=4000
-DB_HOST=localhost
-DB_USER=root
-DB_NAME=tienda
-```
-
-> La instalación por defecto de XAMPP usa `root` sin contraseña. Si tu configuración es diferente, añade `DB_PASSWORD=tu_contraseña`.
 
 ## Estructura del proyecto
 
